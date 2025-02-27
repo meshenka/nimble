@@ -17,7 +17,7 @@ var motivations = []string{
 	"My hometowm is in danger",
 	"Curiosity! I want to lear DEEP secrets",
 	"To prove my worth",
-	"I'm following a profecy",
+	"I'm following a prophecy",
 }
 
 func Motivation() string {

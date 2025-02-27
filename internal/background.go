@@ -1,30 +1,32 @@
 package internal
 
+// who was ..
 var backgrounds = []string{
 	"Backout of retirement",
-	"Devoted protector",
-	"Academic Dropout",
+	"a Devoted protector",
+	"an Academic Dropout",
 	"Made a BAD choice",
-	"Haunted past",
+	"Haunted by my past",
 	"Ear to the Ground",
-	"What? I have been around?",
-	"Acrobat",
-	"Wild one",
+	"suffering Amnesia", //"What? I have been around?",
+	"an Acrobat",
+	"a Wild one",
 	"Fey Touched",
-	"Survivalist",
-	"Home at Sea",
-	"At Home Underground",
+	"a Survivalist",
+	"at Home at Sea",
+	"at Home Underground",
 	"Raised by Goblins",
-	"History Buff",
-	"Former Con Artist",
+	"a History Buff",
+	"a Former Con Artist",
 	"Secretly Undead",
-	"Taste for Finer things",
+	"apprecating a Taste for Finer things", // TODO:
 	"Fearless",
 	"So Dumb I'm smart sometimes",
-	"Wily Underdog",
+	"a Wily Underdog",
 	"Bumblewise",
-	"Accidental Acrobat",
-	"Tradesman/Artisan",
+	"an Accidental Acrobat",
+	"a Tradesman",
+	"an Artisan",
 }
 
 func Background() string {
