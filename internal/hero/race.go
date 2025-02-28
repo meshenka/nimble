@@ -1,4 +1,6 @@
-package internal
+package hero
+
+import "github.com/meshenka/nimble/internal"
 
 var races = []string{
 	"Human",
@@ -31,5 +33,5 @@ var races = []string{
 }
 
 func Race() string {
-	return choose(races)
+	return internal.Choose(races)
 }

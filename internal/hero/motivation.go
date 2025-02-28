@@ -1,4 +1,6 @@
-package internal
+package hero
+
+import "github.com/meshenka/nimble/internal"
 
 var motivations = []string{
 	"I owe a life debt to someone in my party",
@@ -21,5 +23,5 @@ var motivations = []string{
 }
 
 func Motivation() string {
-	return choose(motivations)
+	return internal.Choose(motivations)
 }

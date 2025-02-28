@@ -1,4 +1,6 @@
-package internal
+package hero
+
+import "github.com/meshenka/nimble/internal"
 
 var quirks = []string{
 	"Stoic",
@@ -30,7 +32,7 @@ var quirks = []string{
 	"Dangerous",
 	"Cheery",
 	"Disfigured",
-	"Intolerent",
+	"Intolerant",
 	"Timid",
 	"Bitter",
 	"Cunning",
@@ -60,5 +62,5 @@ var quirks = []string{
 }
 
 func Quirk() string {
-	return choose(quirks)
+	return internal.Choose(quirks)
 }

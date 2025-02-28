@@ -1,4 +1,6 @@
-package internal
+package hero
+
+import "github.com/meshenka/nimble/internal"
 
 // who was ..
 var backgrounds = []string{
@@ -8,7 +10,7 @@ var backgrounds = []string{
 	"Made a BAD choice",
 	"Haunted by my past",
 	"Ear to the Ground",
-	"suffering Amnesia", //"What? I have been around?",
+	"suffering Amnesia", // "What? I have been around?"
 	"an Acrobat",
 	"a Wild one",
 	"Fey Touched",
@@ -19,7 +21,7 @@ var backgrounds = []string{
 	"a History Buff",
 	"a Former Con Artist",
 	"Secretly Undead",
-	"apprecating a Taste for Finer things", // TODO:
+	"apprecating a Taste for Finer things",
 	"Fearless",
 	"So Dumb I'm smart sometimes",
 	"a Wily Underdog",
@@ -30,5 +32,5 @@ var backgrounds = []string{
 }
 
 func Background() string {
-	return choose(backgrounds)
+	return internal.Choose(backgrounds)
 }

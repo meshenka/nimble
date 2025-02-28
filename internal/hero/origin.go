@@ -1,4 +1,6 @@
-package internal
+package hero
+
+import "github.com/meshenka/nimble/internal"
 
 var origins = []string{
 	"The Shadow Blight",
@@ -18,5 +20,5 @@ var origins = []string{
 }
 
 func Origin() string {
-	return choose(origins)
+	return internal.Choose(origins)
 }

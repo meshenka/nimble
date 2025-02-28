@@ -1,4 +1,6 @@
-package internal
+package hero
+
+import "github.com/meshenka/nimble/internal"
 
 var classes = []string{
 	"Berserker",
@@ -15,5 +17,5 @@ var classes = []string{
 }
 
 func Class() string {
-	return choose(classes)
+	return internal.Choose(classes)
 }
