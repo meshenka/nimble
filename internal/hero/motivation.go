@@ -9,7 +9,7 @@ var motivations = []string{
 	"I am searching for a way to bring a loved one from the dead",
 	"I am trying to get back home",
 	"I am searching for the one that stole something valuable from me",
-	"I was polymorpher into another kind of creature by a Wizard",
+	"I was polymorphed into another kind of creature by a Wizard",
 	"Duty calls, I am honor-bound to serve",
 	"I was best friend with someone",
 	"I was i betrayed by someone",
