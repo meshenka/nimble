@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log/slog"
 	"math/rand/v2"
 
 	"github.com/meshenka/nimble/internal"
@@ -17,4 +18,5 @@ func main() {
 	internal.Configure(dst)
 	h := hero.NewHero()
 	fmt.Print(hero.String(h))
+	slog.Info("seeded with", "seed", dst)
 }
