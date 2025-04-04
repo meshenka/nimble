@@ -10,5 +10,7 @@ lint: ## Run linters
 fix: ## Fix linter errors automatically
 	go run github.com/golangci/golangci-lint/cmd/golangci-lint@latest run --fix
 
-test: ## run all tests
+test: unit ## run all tests
+	go test -v -cover -race ./...
+unit: ## run unit tests
 	go test -v -cover -short -race ./...

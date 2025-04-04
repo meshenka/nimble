@@ -17,6 +17,6 @@ func main() {
 	flag.Parse()
 	internal.Configure(dst)
 	h := hero.NewHero()
-	fmt.Print(hero.String(h))
+	fmt.Println(hero.String(h))
 	slog.Info("seeded with", "seed", dst)
 }
