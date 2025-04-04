@@ -23,7 +23,7 @@ func NewHero() Hero {
 }
 
 func String(h Hero) string {
-	return fmt.Sprintf("I am a %s %s %s from %s who was %s that end up adventuring cause %s\n",
+	return fmt.Sprintf("I am a %s %s %s from %s who was %s that end up adventuring cause %s",
 		h.Quirk,
 		h.Class,
 		h.Race,
