@@ -3,12 +3,12 @@ package hero
 import "fmt"
 
 type Hero struct {
-	Race       string
-	Class      string
-	Motivation string
-	Origin     string
-	Background string
-	Quirk      string
+	Race       string `json:"race"`
+	Class      string `json:"class"`
+	Motivation string `json:"raonce"`
+	Origin     string `json:"origin"`
+	Background string `json:"background"`
+	Quirk      string `json:"quirk"`
 }
 
 func NewHero() Hero {
