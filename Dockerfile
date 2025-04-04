@@ -7,17 +7,21 @@ WORKDIR /app
 
 COPY . .
 
-RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
-RUN git config --global url."ssh://git@github.com/".insteadOf "https://github.com/"
-RUN --mount=type=ssh go mod download
+RUN  go mod download && go mod verify
 
-RUN GOOS=linux go build -o api ./cmd/api/main.go
+RUN mkdir -p /bin
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -v -o /bin/api ./cmd/api/main.go
 
 FROM scratch
 
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
-COPY --from=builder /app/api /
+# force rebuild for this part
+ARG BUILD_DATE=$(date +%s)
+LABEL rebuild_trigger=$BUILD_DATE
+COPY --from=builder /bin/api /api
+
+EXPOSE 8080 
 
 CMD [ "/api" ]
