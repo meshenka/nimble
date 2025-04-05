@@ -1,0 +1,280 @@
+[
+	{
+		"name": "Berserker",
+		"key_stats": [
+			"STR",
+			"DEX"
+		],
+		"hit_die": "1d12",
+		"starting_hp": 20,
+		"saves": [
+			"STR+",
+			"INT-"
+		],
+		"armor": [
+			"None"
+		],
+		"weapons": [
+			"STR weapons"
+		],
+		"starting_gear": [
+			"Battleaxe",
+			"Rations (meat)",
+			"Rope (50ft.)"
+		]
+	},
+	{
+		"name": "Cheat",
+		"key_stats": [
+			"DEX",
+			"INT"
+		],
+		"hit_die": "1d6",
+		"starting_hp": 10,
+		"saves": [
+			"DEX+",
+			"WIL-"
+		],
+		"armor": [
+			"Leather Armor"
+		],
+		"weapons": [
+			"DEX weapons"
+		],
+		"starting_gear": [
+			"2 Daggers",
+			"Sling",
+			"Cheap Hides",
+			"Chalk"
+		]
+	},
+	{
+		"name": "Commander",
+		"key_stats": [
+			"STR",
+			"INT"
+		],
+		"hit_die": "1d10",
+		"starting_hp": 17,
+		"saves": [
+			"STR+",
+			"DEX-"
+		],
+		"armor": [
+			"Mail Armor",
+			"Shields"
+		],
+		"weapons": [
+			"Martial weapons"
+		],
+		"starting_gear": [
+			"Short Sword",
+			"Javelins",
+			"Rusty Mail"
+		]
+	},
+	{
+		"name": "Hunter",
+		"key_stats": [
+			"DEX",
+			"WIL"
+		],
+		"hit_die": "1d8",
+		"starting_hp": 13,
+		"saves": [
+			"DEX+",
+			"INT-"
+		],
+		"armor": [
+			"Leather Armor"
+		],
+		"weapons": [
+			"DEX weapons"
+		],
+		"starting_gear": [
+			"Shortbow",
+			"Cheap Hides",
+			"Dagger",
+			"Hunting Trap"
+		]
+	},
+	{
+		"name": "Mage",
+		"key_stats": [
+			"INT",
+			"WIL"
+		],
+		"hit_die": "1d6",
+		"starting_hp": 10,
+		"saves": [
+			"INT+",
+			"STR-"
+		],
+		"armor": [
+			"Cloth Armor"
+		],
+		"weapons": [
+			"Blades",
+			"Staves",
+			"Wands"
+		],
+		"starting_gear": [
+			"Adventurer's Grab",
+			"Staff",
+			"Soap"
+		]
+	},
+	{
+		"name": "Oathsworn",
+		"key_stats": [
+			"STR",
+			"WIL"
+		],
+		"hit_die": "1d10",
+		"starting_hp": 17,
+		"saves": [
+			"STR+",
+			"DEX-"
+		],
+		"armor": [
+			"All Armor"
+		],
+		"weapons": [
+			"STR weapons"
+		],
+		"starting_gear": [
+			"Mace",
+			"Rusty Mail",
+			"Wooden Buckler",
+			"Manacles"
+		]
+	},
+	{
+		"name": "Shadowmancer",
+		"key_stats": [
+			"INT",
+			"DEX"
+		],
+		"hit_die": "1d8",
+		"starting_hp": 13,
+		"saves": [
+			"INT+",
+			"WIL-"
+		],
+		"armor": [
+			"Cloth Armor"
+		],
+		"weapons": [
+			"Blades",
+			"Wands"
+		],
+		"starting_gear": [
+			"Adventurer's Grab",
+			"Sickle",
+			"Shovel"
+		]
+	},
+	{
+		"name": "Shepherd",
+		"key_stats": [
+			"WIL",
+			"STR"
+		],
+		"hit_die": "1d10",
+		"starting_hp": 17,
+		"saves": [
+			"WIL+",
+			"DEX-"
+		],
+		"armor": [
+			"Mail Armor",
+			"Shields"
+		],
+		"weapons": [
+			"STR weapons",
+			"Wands"
+		],
+		"starting_gear": [
+			"Rusty Mail",
+			"Mace",
+			"Wooden Buckler",
+			"Bell"
+		]
+	},
+	{
+		"name": "Songweaver",
+		"key_stats": [
+			"WIL",
+			"INT"
+		],
+		"hit_die": "1d8",
+		"starting_hp": 13,
+		"saves": [
+			"WIL+",
+			"STR-"
+		],
+		"armor": [
+			"Cloth Armor",
+			"Leather Armor"
+		],
+		"weapons": [
+			"DEX weapons",
+			"Wands"
+		],
+		"starting_gear": [
+			"Adventurer's Grab",
+			"Instrument",
+			"Dagger",
+			"Mirror"
+		]
+	},
+	{
+		"name": "Stormshifter",
+		"key_stats": [
+			"WIL",
+			"DEX"
+		],
+		"hit_die": "1d8",
+		"starting_hp": 13,
+		"saves": [
+			"WIL+",
+			"STR-"
+		],
+		"armor": [
+			"Cloth Armor",
+			"Leather Armor"
+		],
+		"weapons": [
+			"Staves",
+			"Wands"
+		],
+		"starting_gear": [
+			"Cheap Hides",
+			"Staff",
+			"Strange Plant"
+		]
+	},
+	{
+		"name": "Zephyr",
+		"key_stats": [
+			"DEX",
+			"STR"
+		],
+		"hit_die": "1d8",
+		"starting_hp": 13,
+		"saves": [
+			"DEX+",
+			"INT-"
+		],
+		"armor": [
+			"None"
+		],
+		"weapons": [
+			"Melee"
+		],
+		"starting_gear": [
+			"Staff",
+			"Traveling Robes & Sandals"
+		]
+	}
+]

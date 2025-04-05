@@ -1,4 +1,7 @@
-run:
+build:
+	go build -o api cmd/api/main.go
+	go build -o cli cmd/rnd/main.go
+cli:
 	go run cmd/rnd/main.go
 
 .PHONY: api
