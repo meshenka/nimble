@@ -8,9 +8,9 @@ import (
 )
 
 type Background struct {
-	Name         string `json:"name"`
-	Requirements string `json:"requirements"`
-	Abilities    string `json:"abilites"`
+	Name         string   `json:"name"`
+	Requirements string   `json:"requirements"`
+	Abilities    []string `json:"abilities"`
 }
 
 //go:embed backgrounds.json
