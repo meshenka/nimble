@@ -20,7 +20,7 @@ func Configure(s uint64) {
 	rn = rand.New(rand.NewPCG(seed, 2999)) //nolint:gosec
 }
 
-func Choose(options []string) string {
+func Choose[T any](options []T) T {
 	idx := rn.IntN(len(options))
 	return options[idx]
 }
