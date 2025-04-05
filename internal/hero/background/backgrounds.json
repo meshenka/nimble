@@ -1,0 +1,141 @@
+[
+	{
+		"name": "Wily Underdog",
+		"requirements": "Strength 0 or negative",
+		"abilities": [
+			"Once per day, you can reroll a failed Strength-based roll (attack, save, Power test, grapple) and use a different stat instead."
+		]
+	},
+	{
+		"name": "Bumblewise",
+		"requirements": "Wisdom 0 or negative",
+		"abilities": [
+			"A result of 1 or less on a Wisdom-based roll (Will save, Initiative, Naturecraft or Perception test) counts as a natural 20."
+		]
+	},
+	{
+		"name": "Back Out of Retirement",
+		"requirements": "None",
+		"abilities": [
+			"You can take 1 Injury to use an ability or cast a spell as if you were one level higher.",
+			"Your aging body shows signs of wear, reducing your max Injuries by 1.",
+			"You know someone who has the info you need or can bail you out. Roll a d20: 1–5: They want you dead. 6–12: You owe them money. 13–19: They can be convinced to help. 20: They’re your biggest fan/love-struck."
+		]
+	},
+	{
+		"name": "History Buff",
+		"requirements": "None",
+		"abilities": [
+			"Advantage on all Lore checks related to objects, facts, or events more than 100 years old."
+		]
+	},
+	{
+		"name": "Ear to the Ground",
+		"requirements": "None",
+		"abilities": [
+			"Advantage on checks to learn or gather info about events happening soon or within the past year."
+		]
+	},
+	{
+		"name": "Ugly/Scarred",
+		"requirements": "None",
+		"abilities": [
+			"Exotic creatures and wild animals are more favorable to you; ‘civilized’ people may react poorly.",
+			"Advantage on intimidation attempts."
+		]
+	},
+	{
+		"name": "Acrobat/Gymnast",
+		"requirements": "Small Size",
+		"abilities": [
+			"Can be thrown by a strong ally over a long distance.",
+			"Take half damage from falls and forced movement."
+		]
+	},
+	{
+		"name": "Former Con Artist",
+		"requirements": "None",
+		"abilities": [
+			"You can forge most documents and mimic voices perfectly.",
+			"You have criminal contacts in major cities.",
+			"Your rep may precede you until you prove trustworthy."
+		]
+	},
+	{
+		"name": "Devoted Protector",
+		"requirements": "None",
+		"abilities": [
+			"Choose an ally in your party. You can survive 3 more Injuries while they’re nearby.",
+			"When they take an Injury, so do you.",
+			"If they die, you die too."
+		]
+	},
+	{
+		"name": "Fearless",
+		"requirements": "None",
+		"abilities": [
+			"Nothing scares you.",
+			"No one can intimidate you.",
+			"-1 Armor."
+		]
+	},
+	{
+		"name": "Fey Touched",
+		"requirements": "None",
+		"abilities": [
+			"Take half damage from all magical effects.",
+			"Take double damage from metal weapons."
+		]
+	},
+	{
+		"name": "Haunted Past",
+		"requirements": "None",
+		"abilities": [
+			"You are haunted by voices giving cryptic advice. Sometimes helpful, sometimes cruel."
+		]
+	},
+	{
+		"name": "Survivalist",
+		"requirements": "None",
+		"abilities": [
+			"You never run out of personal rations.",
+			"Anything can be food if you try hard enough!",
+			"Advantage on poison saves.",
+			"Max +1 Hit Die."
+		]
+	},
+	{
+		"name": "Home at Sea",
+		"requirements": "None",
+		"abilities": [
+			"Recover twice as many Injuries and HP when resting on a ship or near water.",
+			"Can replace a bosun or captain if needed.",
+			"Advantage on water-related checks."
+		]
+	},
+	{
+		"name": "So Dumb I'm Smart Sometimes",
+		"requirements": "Intelligence 0 or negative",
+		"abilities": [
+			"Once per day, reroll an Intelligence-based skill check.",
+			"Once per long rest, reroll a Will save."
+		]
+	},
+	{
+		"name": "At Home Underground",
+		"requirements": "None",
+		"abilities": [
+			"You dig twice as fast.",
+			"Safe rest areas underground always count as luxurious for you.",
+			"You struggle to rest (Will save) when it rains."
+		]
+	},
+	{
+		"name": "Accidental Acrobat",
+		"requirements": "Dexterity 0 or negative",
+		"abilities": [
+			"Whenever you fail a Dexterity-based roll (attack, save, Stealth, Finesse), you may reroll.",
+			"If you fail again, the consequences are severe."
+		]
+	}
+]

@@ -1,4 +1,4 @@
-package hero
+package quirk
 
 import "github.com/meshenka/nimble/internal"
 
@@ -97,6 +97,10 @@ var quirks = []string{
 	"Witty",
 }
 
-func Quirk() string {
-	return internal.Choose(quirks)
+func Select() []string {
+	descriptors := make([]string, 0, 3)
+	for range 3 {
+		descriptors = append(descriptors, internal.Choose(quirks))
+	}
+	return descriptors
 }

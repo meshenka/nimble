@@ -1,14 +1,19 @@
 package hero
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/meshenka/nimble/internal/hero/background"
+	"github.com/meshenka/nimble/internal/hero/quirk"
+)
 
 type Hero struct {
-	Race       string `json:"race"`
-	Class      string `json:"class"`
-	Motivation string `json:"raonce"`
-	Origin     string `json:"origin"`
-	Background string `json:"background"`
-	Quirk      string `json:"quirk"`
+	Race       string                `json:"race"`
+	Class      string                `json:"class"`
+	Motivation string                `json:"motivation"`
+	Origin     string                `json:"origin"`
+	Background background.Background `json:"background"`
+	Quirks     []string              `json:"quirks"`
 }
 
 func NewHero() Hero {
@@ -16,19 +21,19 @@ func NewHero() Hero {
 		Race:       Race(),
 		Class:      Class(),
 		Motivation: Motivation(),
-		Background: Background(),
+		Background: background.Select(),
 		Origin:     Origin(),
-		Quirk:      Quirk(),
+		Quirks:     quirk.Select(),
 	}
 }
 
 func String(h Hero) string {
 	return fmt.Sprintf("I am a %s %s %s from %s who was %s that end up adventuring cause %s",
-		h.Quirk,
+		h.Quirks[0],
 		h.Class,
 		h.Race,
 		h.Origin,
-		h.Background,
+		h.Background.Name,
 		h.Motivation,
 	)
 }
