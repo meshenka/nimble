@@ -1,6 +1,7 @@
 run:
 	go run cmd/rnd/main.go
 
+.PHONY: api
 api:
 	go run cmd/api/main.go
 
