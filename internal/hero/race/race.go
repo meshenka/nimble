@@ -1,6 +1,10 @@
-package hero
+package race
 
-import "github.com/meshenka/nimble/internal"
+import (
+	"slices"
+
+	"github.com/meshenka/nimble/internal"
+)
 
 var races = []string{
 	"Human",
@@ -36,6 +40,11 @@ var races = []string{
 	"Stoatling",
 }
 
-func Race() string {
+func Select() string {
 	return internal.Choose(races)
+}
+
+func All() []string {
+	slices.Sort(races)
+	return slices.Compact(races)
 }

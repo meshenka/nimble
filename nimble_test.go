@@ -25,7 +25,7 @@ func TestAPI(t *testing.T) {
 	t.Cleanup(teardown)
 	time.Sleep(300 * time.Millisecond)
 	t.Run("get a random hero", func(t *testing.T) {
-		req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/heros", http.NoBody)
+		req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/api/heros", http.NoBody)
 		require.NoError(t, err)
 
 		res, err := http.DefaultClient.Do(req)
@@ -40,6 +40,33 @@ func TestAPI(t *testing.T) {
 		require.NoError(t, json.Unmarshal(data, resp))
 		t.Log(resp)
 		assert.NotZero(t, resp)
+	})
+
+	t.Run("get all classes", func(t *testing.T) {
+		req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/api/classes", http.NoBody)
+		require.NoError(t, err)
+
+		res, err := http.DefaultClient.Do(req)
+		require.NoError(t, err)
+		defer res.Body.Close() //nolint:errcheck
+
+		require.Equal(t, http.StatusOK, res.StatusCode)
+
+		_, err = io.ReadAll(res.Body)
+		require.NoError(t, err)
+	})
+	t.Run("get one class", func(t *testing.T) {
+		req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/api/classes/Shepherd", http.NoBody)
+		require.NoError(t, err)
+
+		res, err := http.DefaultClient.Do(req)
+		require.NoError(t, err)
+		defer res.Body.Close() //nolint:errcheck
+
+		require.Equal(t, http.StatusOK, res.StatusCode)
+
+		_, err = io.ReadAll(res.Body)
+		require.NoError(t, err)
 	})
 }
 

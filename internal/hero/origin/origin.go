@@ -1,4 +1,4 @@
-package hero
+package origin
 
 import "github.com/meshenka/nimble/internal"
 
@@ -19,6 +19,10 @@ var origins = []string{
 	"Frostforge mountains",
 }
 
-func Origin() string {
+func Select() string {
 	return internal.Choose(origins)
+}
+
+func All() []string {
+	return origins
 }

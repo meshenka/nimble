@@ -18,7 +18,7 @@ func main() {
 	flag.Parse()
 	internal.Configure(dst)
 	log.Configure(slog.LevelDebug)
-	h := hero.NewHero()
+	h := hero.New()
 	fmt.Println(hero.String(h))
 	slog.Info("seeded with", "seed", dst)
 	slog.Debug("hero details", "hero", h)

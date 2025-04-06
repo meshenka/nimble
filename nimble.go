@@ -27,7 +27,9 @@ func Serve(parent context.Context, options ...Option) error {
 
 	group.Go(func() error {
 		mux := transport.NewServeMux()
-		mux.Handle("GET /heros", handler.Hero())
+		mux.Handle("GET /api/heros", handler.Hero())
+		mux.Handle("GET /api/classes", handler.Classes())
+		mux.Handle("GET /api/classes/{name}", handler.GetClass())
 		mw := transport.Use(log.HTTPMiddleware())
 		srv := transport.NewServer(mw.Wrap(mux))
 		return transport.Serve(ctx, cfg.ApplicationHTTPServerAddr, srv, nil, httpReady)
