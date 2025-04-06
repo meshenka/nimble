@@ -5,7 +5,10 @@ import (
 
 	"github.com/meshenka/nimble/internal/hero/background"
 	"github.com/meshenka/nimble/internal/hero/class"
+	"github.com/meshenka/nimble/internal/hero/motivation"
+	"github.com/meshenka/nimble/internal/hero/origin"
 	"github.com/meshenka/nimble/internal/hero/quirk"
+	"github.com/meshenka/nimble/internal/hero/race"
 )
 
 type Hero struct {
@@ -17,13 +20,13 @@ type Hero struct {
 	Quirks     []string              `json:"quirks"`
 }
 
-func NewHero() Hero {
+func New() Hero {
 	return Hero{
-		Race:       Race(),
+		Race:       race.Select(),
 		Class:      class.Select(),
-		Motivation: Motivation(),
+		Motivation: motivation.Select(),
 		Background: background.Select(),
-		Origin:     Origin(),
+		Origin:     origin.Select(),
 		Quirks:     quirk.Select(),
 	}
 }

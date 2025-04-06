@@ -11,7 +11,7 @@ import (
 
 func Hero() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		h := hero.NewHero()
+		h := hero.New()
 		writeJSON(r.Context(), w, map[string]any{
 			"hero":     h,
 			"sentence": hero.String(h),

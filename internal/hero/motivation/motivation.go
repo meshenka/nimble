@@ -1,4 +1,4 @@
-package hero
+package motivation
 
 import "github.com/meshenka/nimble/internal"
 
@@ -22,6 +22,10 @@ var motivations = []string{
 	"I'm following a prophecy",
 }
 
-func Motivation() string {
+func Select() string {
 	return internal.Choose(motivations)
+}
+
+func All() []string {
+	return motivations
 }
