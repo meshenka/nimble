@@ -3,6 +3,8 @@ package class
 import (
 	_ "embed"
 	"encoding/json"
+	"errors"
+	"slices"
 
 	"github.com/meshenka/nimble/internal"
 )
@@ -32,4 +34,19 @@ func init() {
 
 func Select() Class {
 	return internal.Choose(classes)
+}
+
+func All() []Class {
+	return classes
+}
+
+func Get(name string) (Class, error) {
+	index := slices.IndexFunc(classes, func(c Class) bool {
+		return c.Name == name
+	})
+	if index == -1 {
+		return Class{}, errors.New("not found")
+	}
+
+	return classes[index], nil
 }
