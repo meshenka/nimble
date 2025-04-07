@@ -3,62 +3,53 @@
 		"name": "Wily Underdog",
 		"requirements": "Strength 0 or negative",
 		"abilities": [
-			"Once per day, you can reroll a failed Strength-based roll (attack, save, Power test, grapple) and use a different stat instead."
+			"Reroll a failed STR-related roll (e.g., STR attack, STR save, Might check) and use another stat instead, 1/day."
 		]
 	},
 	{
 		"name": "Bumblewise",
-		"requirements": "Wisdom 0 or negative",
+		"requirements": "0 or negative WIL at character creation",
 		"abilities": [
-			"A result of 1 or less on a Wisdom-based roll (Will save, Initiative, Naturecraft or Perception test) counts as a natural 20."
+			"A result of 1 or less on any WIL-related roll counts as a natural 20 (WIL save, Naturecraft, Perception, Influence, or Insight check)."
 		]
 	},
 	{
 		"name": "Back Out of Retirement",
 		"requirements": "None",
 		"abilities": [
-			"You can take 1 Injury to use an ability or cast a spell as if you were one level higher.",
+			"Let’s see if I remember how to do this...You may gain 1 Wound to use an ability or cast a spell as if you were 1 level higher.",
 			"Your aging body shows signs of wear, reducing your max Injuries by 1.",
-			"You know someone who has the info you need or can bail you out. Roll a d20: 1–5: They want you dead. 6–12: You owe them money. 13–19: They can be convinced to help. 20: They’re your biggest fan/love-struck."
+			"These old bones. Your age has long since started to show. –1 max Wounds."
 		]
 	},
 	{
 		"name": "History Buff",
 		"requirements": "None",
 		"abilities": [
-			"Advantage on all Lore checks related to objects, facts, or events more than 100 years old."
+			"Advantage on all Lore checks related to knowledge about items, facts, or events that hap-pened more than 100 years ago."
 		]
 	},
 	{
 		"name": "Ear to the Ground",
 		"requirements": "None",
 		"abilities": [
-			"Advantage on checks to learn or gather info about events happening soon or within the past year."
+			"Advantage on checks to know or obtain gossip for events that will soon happen or have happened less than 1 year ago"
 		]
 	},
 	{
-		"name": "Ugly/Scarred",
+		"name": "Acrobat",
 		"requirements": "None",
 		"abilities": [
-			"Exotic creatures and wild animals are more favorable to you; ‘civilized’ people may react poorly.",
-			"Advantage on intimidation attempts."
+			"Can be thrown by a larger ally, REALLY far. Half damage from falling and forced movement."
 		]
 	},
 	{
-		"name": "Acrobat/Gymnast",
-		"requirements": "Small Size",
-		"abilities": [
-			"Can be thrown by a strong ally over a long distance.",
-			"Take half damage from falls and forced movement."
-		]
-	},
-	{
-		"name": "Former Con Artist",
+		"name": "(Former) Con Artist",
 		"requirements": "None",
 		"abilities": [
-			"You can forge most documents and mimic voices perfectly.",
-			"You have criminal contacts in major cities.",
-			"Your rep may precede you until you prove trustworthy."
+			"You can forge most docu-ments or mimic voices flawlessly.",
+			"You have a crim-inal contact in most major cities.",
+			"However, your reputation often precedes you—until you prove yourself to be trustworthy."
 		]
 	},
 	{
@@ -66,76 +57,137 @@
 		"requirements": "None",
 		"abilities": [
 			"Choose an ally in your party. You can survive 3 more Injuries while they’re nearby.",
-			"When they take an Injury, so do you.",
-			"If they die, you die too."
+			"When they take an Injury, so do you."
 		]
 	},
 	{
 		"name": "Fearless",
 		"requirements": "None",
 		"abilities": [
-			"Nothing scares you.",
-			"No one can intimidate you.",
-			"-1 Armor."
+			"You are immune to the Frightened condition.",
+			"+1 Initiative.",
+			"–1 Armor."
 		]
 	},
 	{
 		"name": "Fey Touched",
 		"requirements": "None",
 		"abilities": [
-			"Take half damage from all magical effects.",
-			"Take double damage from metal weapons."
+			"You take half damage from all magical effects",
+			"Double from weapons made of metal (before armor is applied)."
 		]
 	},
 	{
 		"name": "Haunted Past",
 		"requirements": "None",
 		"abilities": [
-			"You are haunted by voices giving cryptic advice. Sometimes helpful, sometimes cruel."
+			"You are haunted by voices that occasionally give you cryptic advice. The voices are sometimes VERY helpful. Other times they only want to see you suffer.",
+			"Advantage against fear."
 		]
 	},
 	{
 		"name": "Survivalist",
 		"requirements": "None",
 		"abilities": [
-			"You never run out of personal rations.",
+			"You never run out of your own personal rations.",
 			"Anything can be food if you try hard enough!",
-			"Advantage on poison saves.",
-			"Max +1 Hit Die."
+			"Advantage against poison saves.",
+			"+1 max Hit Die."
 		]
 	},
 	{
 		"name": "Home at Sea",
 		"requirements": "None",
 		"abilities": [
-			"Recover twice as many Injuries and HP when resting on a ship or near water.",
-			"Can replace a bosun or captain if needed.",
-			"Advantage on water-related checks."
+			"Recover twice as many Wounds and HP while resting on a ship or near water.",
+			"You can fill in for a first mate or captain in a pinch.",
+			"Advantage on water-related skill checks."
 		]
 	},
 	{
 		"name": "So Dumb I'm Smart Sometimes",
-		"requirements": "Intelligence 0 or negative",
+		"requirements": "0 or negative INT at character creation",
 		"abilities": [
-			"Once per day, reroll an Intelligence-based skill check.",
-			"Once per long rest, reroll a Will save."
+			"Reroll an INT-related skill check, 1/day.",
+			"Reroll a failed INT save with advantage, 1/Safe Rest."
 		]
 	},
 	{
 		"name": "At Home Underground",
 		"requirements": "None",
 		"abilities": [
-			"You dig twice as fast.",
-			"Safe rest areas underground always count as luxurious for you.",
-			"You struggle to rest (Will save) when it rains."
+			"You can dig twice as fast as others.",
+			"Safe resting locations underground always count as Lavish lodging for you.",
+			"You struggle to rest (INT save) while it's raining. 'Water... from the SKY?'"
 		]
 	},
 	{
 		"name": "Accidental Acrobat",
-		"requirements": "Dexterity 0 or negative",
+		"requirements": "0 or negative DEX at character creation",
 		"abilities": [
-			"Whenever you fail a Dexterity-based roll (attack, save, Stealth, Finesse), you may reroll.",
-			"If you fail again, the consequences are severe."
+			"Whenever you fail a DEX-related roll (e.g., DEX attack, DEX save, Stealth check, Finesse check), you may roll again. If you still fail, the consequences are BAD"
+		]
+	},
+	{
+		"name": "Academy Dropout",
+		"requirements": "None",
+		"abilities": [
+			"School just isn’t for everyone! You learn by experience in the real world (or at least that’s what you tell yourself). Learn any 1 Utility Spell."
+		]
+	},
+	{
+		"name": "Made a BAD Choice",
+		"requirements": "None",
+		"abilities": [
+			"Start with 500 or 1000 extra gold,  or  an  uncommon/rare  magical  item  (that  your GM allows).",
+			"Gain an equally powerful curse or enemy who wants it back.",
+			"If you choose this background, your GM may allow you to choose another"
+		]
+	},
+	{
+		"name": "What? I’ve Been Around",
+		"requirements": "None",
+		"abilities": [
+			"1/per location (or at the GM’s discretion). You happen to know JUST the person who has the information you’re looking for, or could get you out of a jam, and... Roll 1d20:•1–5: They want you DEAD. •6–12: You owe them money.•13–19: They can be convinced to help you..•20: They are your biggest fan/are madly in love with you."
+		]
+	},
+	{
+		"name": "Wild One",
+		"requirements": "None",
+		"abilities": [
+			"Whether it is the sticks or flowers in your hair, your smell, or the way you carry yourself, wild creatures are less frightened of you and more willing to aid you.",
+			"+1 Naturecraft.",
+			"While Field Resting, roll your Hit Dice with advantage while in the wild."
+		]
+	},
+	{
+		"name": "Raised by Goblins",
+		"requirements": "None",
+		"abilities": [
+			"You speak Goblin natively (much better than one who has learned it later in life).",
+			"You automatically notice and can avoid crudely-made traps and have advantage to notice and disarm more sophisticated traps"
+		]
+	},
+	{
+		"name": "(Secretly) Undead",
+		"requirements": "None",
+		"abilities": [
+			"Unnatural Resilience: You are immune to disease and do not need to eat, drink, or breathe.",
+			"Children, animals, and Celestials are uneasy in your presence; many will be horrified to discover your true nature."
+		]
+	},
+	{
+		"name": "Taste for the Finer Things",
+		"requirements": "None",
+		"abilities": [
+			"You always have up-to-date knowledge of the customs and dress of the upper classes and may even know many of their secrets. Advantage on Influence checks with the upper class."
+		]
+	},
+	{
+		"name": "Tradesman/Artisan",
+		"requirements": "None",
+		"abilities": [
+			"Choose a profession (Baker/Cook, Smith, Stonemason, Weaver, Leatherworker, etc.). Checks you make related to that profession are made with advantage. You also retain special knowledge related to your profession."
 		]
 	}
 ]
