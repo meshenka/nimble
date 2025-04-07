@@ -68,6 +68,33 @@ func TestAPI(t *testing.T) {
 		_, err = io.ReadAll(res.Body)
 		require.NoError(t, err)
 	})
+
+	t.Run("get all races", func(t *testing.T) {
+		req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/api/races", http.NoBody)
+		require.NoError(t, err)
+
+		res, err := http.DefaultClient.Do(req)
+		require.NoError(t, err)
+		defer res.Body.Close() //nolint:errcheck
+
+		require.Equal(t, http.StatusOK, res.StatusCode)
+
+		_, err = io.ReadAll(res.Body)
+		require.NoError(t, err)
+	})
+	t.Run("get one race", func(t *testing.T) {
+		req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/api/races/Elf", http.NoBody)
+		require.NoError(t, err)
+
+		res, err := http.DefaultClient.Do(req)
+		require.NoError(t, err)
+		defer res.Body.Close() //nolint:errcheck
+
+		require.Equal(t, http.StatusOK, res.StatusCode)
+
+		_, err = io.ReadAll(res.Body)
+		require.NoError(t, err)
+	})
 }
 
 type Response struct {

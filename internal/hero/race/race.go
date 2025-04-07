@@ -1,50 +1,53 @@
 package race
 
 import (
+	_ "embed"
+	"encoding/json"
+	"errors"
 	"slices"
 
 	"github.com/meshenka/nimble/internal"
 )
 
-var races = []string{
-	"Human",
-	"Human",
-	"Human",
-	"Elf",
-	"Elf",
-	"Elf",
-	"Dwarf",
-	"Dwarf",
-	"Dwarf",
-	"Halfling",
-	"Halfling",
-	"Halfling",
-	"Gnome",
-	"Gnome",
-	"Bunbun",
-	"Orc",
-	"Minotaur",
-	"Celestial",
-	"Fiendkin",
-	"Half-Giant",
-	"Ooze",
-	"Planarbeing",
-	"Goblin",
-	"Kobold",
-	"Birdfolk",
-	"Changeling",
-	"Crystalborn",
-	"Dryad",
-	"Ratfolk",
-	"Turtlefolk",
-	"Stoatling",
+type Capacity struct {
+	Name    string   `json:"name"`
+	Effects []string `json:"effects"`
 }
 
-func Select() string {
+type Race struct {
+	Name        string   `json:"name"`
+	Size        string   `json:"size"`
+	Type        string   `json:"type"`
+	Description string   `json:"description"`
+	Capacity    Capacity `json:"capacity"`
+}
+
+//go:embed race.json
+var racesJSON []byte
+var races []Race
+
+func init() {
+	err := json.Unmarshal(racesJSON, &races)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func Select() Race {
 	return internal.Choose(races)
 }
 
-func All() []string {
-	slices.Sort(races)
-	return slices.Compact(races)
+func All() []Race {
+	return races
+}
+
+func Get(name string) (Race, error) {
+	index := slices.IndexFunc(races, func(r Race) bool {
+		return r.Name == name
+	})
+	if index == -1 {
+		return Race{}, errors.New("not found")
+	}
+
+	return races[index], nil
 }
