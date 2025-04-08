@@ -1,0 +1,56 @@
+[
+	{
+		"name": "Human",
+		"size": "medium",
+		"description": "Found in every terrain and environment, their curiosity and ambition drive them to explore every corner of the world, making them a ubiquitous and versatile race.",
+		"type": "common",
+		"capacity": {
+			"name": "Tenacious",
+			"effets": [
+				"+1 to all skills and Initiative"
+			]
+		}
+	},
+	{
+		"name": "Dwarf",
+		"size": "medium",
+		"description": "Dwarf, in the old language, means “stone.” You are resilient, solid, stout. Even when driven to exhaustion, you will not falter. Forgoing speed, you are gifted with physical vitality and a belly that can handle the finest (and worst) consumables this world has to offer",
+		"type": "common",
+		"capacity": {
+			"name": "Stout",
+			"effets": [
+				"+2 max Hit Dice",
+				"+1 max Wounds",
+				"–1 Speed",
+				"You know Dwarvish if your INT is not negative"
+			]
+		}
+	},
+	{
+		"name": "Elf",
+		"size": "medium",
+		"description": "Elves epitomize swiftness and grace. Their tall, slender forms belie their innate speed, grace, and wit. Formidable in both diplomacy and combat, elves strike swiftly, often pre-venting the worst by acting first",
+		"type": "common",
+		"capacity": {
+			"name": "Lithe",
+			"effets": [
+				"Advantage on Initiative",
+				"+1 Speed",
+				"You know Elvish if your INT is not negative"
+			]
+		}
+	},
+	{
+		"name": "Halfling",
+		"size": "Small",
+		"description": "Kind of like a human, but smaller (except for the feet). Where does our luck come from? Well...you know what they say about rabbit feet? Well, we’ve got feet for days compared to them. Imagine the amount of luck you could fit into these bad boys!",
+		"type": "common",
+		"capacity": {
+			"name": "Elusive",
+			"effets": [
+				"1 to Stealth",
+				"If you fail a save, you can succeed instead, 1/Safe Rest"
+			]
+		}
+	}
+]

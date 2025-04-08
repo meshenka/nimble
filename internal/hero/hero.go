@@ -12,7 +12,7 @@ import (
 )
 
 type Hero struct {
-	Race       string                `json:"race"`
+	Race       race.Race             `json:"race"`
 	Class      class.Class           `json:"class"`
 	Motivation string                `json:"motivation"`
 	Origin     string                `json:"origin"`
@@ -35,7 +35,7 @@ func String(h Hero) string {
 	return fmt.Sprintf("I am a %s %s %s from %s who was %s that end up adventuring cause %s",
 		h.Quirks[0],
 		h.Class.Name,
-		h.Race,
+		h.Race.Name,
 		h.Origin,
 		h.Background.Name,
 		h.Motivation,
