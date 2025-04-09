@@ -1,4 +1,4 @@
-package race
+package ancestry
 
 import (
 	_ "embed"
@@ -14,7 +14,7 @@ type Capacity struct {
 	Effects []string `json:"effects"`
 }
 
-type Race struct {
+type Ancestry struct {
 	Name        string   `json:"name"`
 	Size        string   `json:"size"`
 	Type        string   `json:"type"`
@@ -22,32 +22,32 @@ type Race struct {
 	Capacity    Capacity `json:"capacity"`
 }
 
-//go:embed race.json
-var racesJSON []byte
-var races []Race
+//go:embed ancestries.json
+var ancestriesJSON []byte
+var ancestries []Ancestry
 
 func init() {
-	err := json.Unmarshal(racesJSON, &races)
+	err := json.Unmarshal(ancestriesJSON, &ancestries)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func Select() Race {
-	return internal.Choose(races)
+func Select() Ancestry {
+	return internal.Choose(ancestries)
 }
 
-func All() []Race {
-	return races
+func All() []Ancestry {
+	return ancestries
 }
 
-func Get(name string) (Race, error) {
-	index := slices.IndexFunc(races, func(r Race) bool {
+func Get(name string) (Ancestry, error) {
+	index := slices.IndexFunc(ancestries, func(r Ancestry) bool {
 		return r.Name == name
 	})
 	if index == -1 {
-		return Race{}, errors.New("not found")
+		return Ancestry{}, errors.New("not found")
 	}
 
-	return races[index], nil
+	return ancestries[index], nil
 }
