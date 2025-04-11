@@ -18,5 +18,12 @@
 
     <!-- Load your external React component -->
     <script type="text/babel" src="index.js"></script>
+
+    <script type="text/babel">
+        // Render the app
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<HeroApp />);
+    </script>
 </body>
 </html>

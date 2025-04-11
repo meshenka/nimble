@@ -83,6 +83,7 @@ func HTTPMiddleware() func(http.Handler) http.Handler {
 				slog.String("ctx_request_id", rid),
 				slog.String("ctx_method", r.Method),
 				slog.String("ctx_path", r.URL.Path),
+				slog.String("ctx_pattern", r.Pattern),
 				slog.String("ctx_user_agent", r.UserAgent()),
 				slog.Time("ctx_received_at", time.Now()),
 			)

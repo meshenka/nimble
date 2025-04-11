@@ -11,7 +11,6 @@ import (
 	"time"
 
 	"github.com/meshenka/nimble"
-	"github.com/meshenka/nimble/internal/hero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -39,7 +38,7 @@ func TestAPI(t *testing.T) {
 		resp := new(Response)
 		require.NoError(t, json.Unmarshal(data, resp))
 		t.Log(resp)
-		assert.NotZero(t, resp)
+		assert.NotZero(t, resp.Sentence)
 	})
 
 	t.Run("classes", func(t *testing.T) {
@@ -102,8 +101,7 @@ func TestAPI(t *testing.T) {
 }
 
 type Response struct {
-	Hero     hero.Hero `json:"hero"`
-	Sentence string    `json:"sentence"`
+	Sentence string `json:"sentence"`
 }
 
 func setup(t *testing.T) (string, context.CancelFunc) {
