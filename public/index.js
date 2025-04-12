@@ -19,28 +19,54 @@ function HeroApp() {
     }
   };
 
-  return (
-      <div className="app-container">
-        <h1 className="app-title">Who the fuck is my Nimble Character?</h1>
-        <button 
-          onClick={fetchHeroSentence}
-          disabled={loading}
-          className="btn"
-        >
-          {loading ? 'Loading...' : 'Yea'}
-        </button>
-        
-        {sentence && (
-          <div className="sentence-container">
-            <p className="sentence-text">{sentence}</p>
-          </div>
-        )}
-        
-        {error && (
-          <div className="error-container">
-            <p>{error}</p>
-          </div>
-        )}
-      </div>
+  // Create button element
+  const button = React.createElement(
+    'button',
+    { 
+      onClick: fetchHeroSentence,
+      disabled: loading,
+      className: 'btn'
+    },
+    loading ? 'Loading...' : 'Yea'
   );
+
+  // Create sentence display if sentence exists
+  let sentenceElement = null;
+  if (sentence) {
+    sentenceElement = React.createElement(
+      'div',
+      { className: 'sentence-container' },
+      React.createElement(
+        'p',
+        { className: 'sentence-text' },
+        sentence
+      )
+    );
+  }
+
+  // Create error display if error exists
+  let errorElement = null;
+  if (error) {
+    errorElement = React.createElement(
+      'div',
+      { className: 'error-container' },
+      React.createElement('p', null, error)
+    );
+  }
+
+  // Create app title
+  const title = React.createElement(
+    'h1',
+    { className: 'app-title' },
+    'Hero Sentence App'
+  );
+
+  // Create app container
+  const appContainer = React.createElement(
+    'div',
+    { className: 'app-container' },
+    [title, button, sentenceElement, errorElement].filter(Boolean)
+  );
+
+  return appContainer;
 }
