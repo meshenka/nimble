@@ -113,7 +113,7 @@ func TestAPI(t *testing.T) {
 			require.NoError(t, err)
 		})
 		t.Run("get one", func(t *testing.T) {
-			req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/api/backgrounds/Acrobat", http.NoBody)
+			req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/api/backgrounds/Ear to the Ground", http.NoBody)
 			require.NoError(t, err)
 
 			res, err := http.DefaultClient.Do(req)

@@ -7,16 +7,34 @@ import (
 	"github.com/meshenka/nimble/internal/log"
 )
 
-func Races() http.Handler {
+type AncestriesList struct {
+	Ancestries []ancestry.Ancestry `json:"ancestries"`
+}
+
+// @Summary      All ancestries
+// @Description  Get all ancestries
+// @Tags         ancestry
+// @Produce      json
+// @Success      200  {object}  AncestriesList
+// @Router       /ancestries [get]func Classes() http.Handler {
+func Ancestries() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Cache-Control", "public, max-age=5184000, s-maxage=5184000") // 24h
-		writeJSON(r.Context(), w, map[string]any{
-			"ancestries": ancestry.All(),
+		writeJSON(r.Context(), w, AncestriesList{
+			Ancestries: ancestry.All(),
 		})
 	})
 }
 
-func GetRace() http.Handler {
+// @Summary      Get ancestry
+// @Description  Get one ancestry by name
+// @Tags         ancestry
+// @Param        name   path      string  true  "Ancestry name"
+// @Produce      json
+// @Success      200  {object}  ancestry.Ancestry
+// @Success      404
+// @Router       /ancestries/{name} [get]func Classes() http.Handler {
+func GetAncestry() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Cache-Control", "public, max-age=5184000, s-maxage=5184000") // 24h
 		name := r.PathValue("name")

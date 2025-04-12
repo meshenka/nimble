@@ -7,15 +7,33 @@ import (
 	"github.com/meshenka/nimble/internal/log"
 )
 
+type ClassesList struct {
+	Classes []class.Class `json:"classes"`
+}
+
+// @Summary      All classes
+// @Description  Get all classes
+// @Tags         class
+// @Produce      json
+// @Success      200  {object}  ClassesList
+// @Router       /classes [get]func Classes() http.Handler {
 func Classes() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Cache-Control", "public, max-age=5184000, s-maxage=5184000") // 24h
-		writeJSON(r.Context(), w, map[string]any{
-			"classes": class.All(),
+		writeJSON(r.Context(), w, ClassesList{
+			Classes: class.All(),
 		})
 	})
 }
 
+// @Summary      Get class
+// @Description  Get one class by name
+// @Tags         class
+// @Param        name   path      string  true  "Class name"
+// @Produce      json
+// @Success      200  {object}  class.Class
+// @Success      404
+// @Router       /classes/{name} [get]func Classes() http.Handler {
 func GetClass() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Cache-Control", "public, max-age=5184000, s-maxage=5184000") // 24h
