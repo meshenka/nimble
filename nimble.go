@@ -33,6 +33,8 @@ func Serve(parent context.Context, options ...Option) error {
 		mux.Handle("GET /api/classes/{name}", handler.GetClass())
 		mux.Handle("GET /api/ancestries", handler.Races())
 		mux.Handle("GET /api/ancestries/{name}", handler.GetRace())
+		mux.Handle("GET /api/backgrounds", handler.Backgrounds())
+		mux.Handle("GET /api/backgrounds/{name}", handler.GetBackround())
 		// Create a file server handler for the static assets directory
 		fs := http.FileServer(http.Dir("./public"))
 		mux.Handle("GET /", http.StripPrefix("/", fs))

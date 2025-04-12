@@ -98,6 +98,44 @@ func TestAPI(t *testing.T) {
 			require.NoError(t, err)
 		})
 	})
+	t.Run("backgrounds", func(t *testing.T) {
+		t.Run("get all", func(t *testing.T) {
+			req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/api/backgrounds", http.NoBody)
+			require.NoError(t, err)
+
+			res, err := http.DefaultClient.Do(req)
+			require.NoError(t, err)
+			defer res.Body.Close() //nolint:errcheck
+
+			require.Equal(t, http.StatusOK, res.StatusCode)
+
+			_, err = io.ReadAll(res.Body)
+			require.NoError(t, err)
+		})
+		t.Run("get one", func(t *testing.T) {
+			req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/api/backgrounds/Acrobat", http.NoBody)
+			require.NoError(t, err)
+
+			res, err := http.DefaultClient.Do(req)
+			require.NoError(t, err)
+			defer res.Body.Close() //nolint:errcheck
+
+			require.Equal(t, http.StatusOK, res.StatusCode)
+
+			_, err = io.ReadAll(res.Body)
+			require.NoError(t, err)
+		})
+		t.Run("get non existing", func(t *testing.T) {
+			req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/api/backgrounds/NO_MATCH", http.NoBody)
+			require.NoError(t, err)
+
+			res, err := http.DefaultClient.Do(req)
+			require.NoError(t, err)
+			defer res.Body.Close() //nolint:errcheck
+
+			require.Equal(t, http.StatusNotFound, res.StatusCode)
+		})
+	})
 }
 
 type Response struct {
