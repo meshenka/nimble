@@ -1,71 +1,84 @@
-/* Basic fallback styles in case Tailwind doesn't load properly */
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  color: #333;
 }
 
 #root {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f3f4f6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3f4f6;
+  padding: 1rem;
 }
 
+/* Main container styles */
 .app-container {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 28rem;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 28rem;
 }
 
 .app-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-.yea-button {
-    width: 100%;
-    background-color: #3b82f6;
-    color: white;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
+/* Button styles */
+.btn {
+  display: block;
+  width: 100%;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
 }
 
-.yea-button:hover {
-    background-color: #2563eb;
+.btn:hover {
+  background-color: #2563eb;
 }
 
-.yea-button:disabled {
-    background-color: #93c5fd;
-    cursor: not-allowed;
+.btn:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
 }
 
+/* Sentence display */
 .sentence-container {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background-color: #f9fafb;
-    border-radius: 0.375rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.375rem;
 }
 
 .sentence-text {
-    font-size: 1.125rem;
-    text-align: center;
+  font-size: 1.125rem;
+  text-align: center;
 }
 
+/* Error message */
 .error-container {
-    margin-top: 1rem;
-    padding: 0.75rem;
-    background-color: #fee2e2;
-    color: #b91c1c;
-    border-radius: 0.375rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-radius: 0.375rem;
 }
