@@ -27,7 +27,7 @@ function HeroApp() {
       disabled: loading,
       className: 'btn'
     },
-    loading ? 'Loading...' : 'Yea'
+    loading ? 'Loading...' : 'Let\s See!'
   );
 
   // Create sentence display if sentence exists
@@ -58,7 +58,7 @@ function HeroApp() {
   const title = React.createElement(
     'h1',
     { className: 'app-title' },
-    'Hero Sentence App'
+    'My F*cking Nimble 5e Hero'
   );
 
   // Create app container
