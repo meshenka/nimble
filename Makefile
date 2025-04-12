@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := build
-.PHONY: api cli
+.PHONY: api cli docs
 
 build:
 	go build -o api cmd/api/main.go
@@ -21,3 +21,9 @@ test: ## run all tests
 	go test -cover -race ./...
 unit: ## run unit tests
 	go test -cover -short -race ./...
+
+docs: ## generate api documentation
+	go run github.com/swaggo/swag/cmd/swag@latest init \
+		-g ./nimble.go \
+		--dir ./ \
+		-ot yaml

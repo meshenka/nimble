@@ -11,6 +11,20 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
+// @title           Who my f*cking Nimble 5e character is?
+// @version         1.0
+// @description     Instant random character generator
+// @termsOfService  http://swagger.io/terms/
+// @contact.name   Meshenka
+// @contact.email  meshee.knight@gmail.com
+// @license.name  Apache 2.0
+// @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host      localhost:3000
+// @BasePath  /api/
+
+// @externalDocs.description  OpenAPI
+// @externalDocs.url          https://swagger.io/resources/open-api/
 // Serve starts the HTTP server.
 func Serve(parent context.Context, options ...Option) error {
 	// return errors.New("not implemented")
@@ -31,8 +45,8 @@ func Serve(parent context.Context, options ...Option) error {
 		mux.Handle("GET /api/heros", handler.Hero())
 		mux.Handle("GET /api/classes", handler.Classes())
 		mux.Handle("GET /api/classes/{name}", handler.GetClass())
-		mux.Handle("GET /api/ancestries", handler.Races())
-		mux.Handle("GET /api/ancestries/{name}", handler.GetRace())
+		mux.Handle("GET /api/ancestries", handler.Ancestries())
+		mux.Handle("GET /api/ancestries/{name}", handler.GetAncestry())
 		mux.Handle("GET /api/backgrounds", handler.Backgrounds())
 		mux.Handle("GET /api/backgrounds/{name}", handler.GetBackround())
 		// Create a file server handler for the static assets directory

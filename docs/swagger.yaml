@@ -1,0 +1,241 @@
+basePath: /api/
+definitions:
+  ancestry.Ancestry:
+    properties:
+      capacity:
+        $ref: '#/definitions/ancestry.Capacity'
+      description:
+        type: string
+      name:
+        type: string
+      size:
+        type: string
+      type:
+        type: string
+    type: object
+  ancestry.Capacity:
+    properties:
+      effects:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+    type: object
+  background.Background:
+    properties:
+      abilities:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+      requirements:
+        type: string
+    type: object
+  class.Class:
+    properties:
+      armor:
+        items:
+          type: string
+        type: array
+      hit_die:
+        type: string
+      key_stats:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+      saves:
+        items:
+          type: string
+        type: array
+      starting_gear:
+        items:
+          type: string
+        type: array
+      starting_hp:
+        type: integer
+      weapons:
+        items:
+          type: string
+        type: array
+    type: object
+  handler.AncestriesList:
+    properties:
+      ancestries:
+        items:
+          $ref: '#/definitions/ancestry.Ancestry'
+        type: array
+    type: object
+  handler.BackgroundsList:
+    properties:
+      backgrounds:
+        items:
+          $ref: '#/definitions/background.Background'
+        type: array
+    type: object
+  handler.ClassesList:
+    properties:
+      classes:
+        items:
+          $ref: '#/definitions/class.Class'
+        type: array
+    type: object
+  handler.HeroResponse:
+    properties:
+      hero:
+        $ref: '#/definitions/hero.Hero'
+      sentence:
+        type: string
+    type: object
+  hero.Hero:
+    properties:
+      ancestry:
+        $ref: '#/definitions/ancestry.Ancestry'
+      background:
+        $ref: '#/definitions/background.Background'
+      class:
+        $ref: '#/definitions/class.Class'
+      motivation:
+        type: string
+      origin:
+        type: string
+      quirks:
+        items:
+          type: string
+        type: array
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:3000
+info:
+  contact:
+    email: meshee.knight@gmail.com
+    name: Meshenka
+  description: Instant random character generator
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Who my f*cking Nimble 5e character is?
+  version: "1.0"
+paths:
+  /ancestries:
+    get:
+      description: Get all ancestries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.AncestriesList'
+      summary: All ancestries
+      tags:
+      - ancestry
+  /ancestries/{name}:
+    get:
+      description: Get one ancestry by name
+      parameters:
+      - description: Ancestry name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ancestry.Ancestry'
+        "404":
+          description: Not Found
+      summary: Get ancestry
+      tags:
+      - ancestry
+  /backgrounds:
+    get:
+      description: List all available backgrounds
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.BackgroundsList'
+      summary: All backgrounds
+      tags:
+      - background
+  /backgrounds/{name}:
+    get:
+      description: Get a background by name
+      parameters:
+      - description: Background name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/background.Background'
+        "404":
+          description: Not Found
+      summary: One Background
+      tags:
+      - background
+  /classes:
+    get:
+      description: Get all classes
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.ClassesList'
+      summary: All classes
+      tags:
+      - class
+  /classes/{name}:
+    get:
+      description: Get one class by name
+      parameters:
+      - description: Class name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/class.Class'
+        "404":
+          description: Not Found
+      summary: Get class
+      tags:
+      - class
+  /heros:
+    get:
+      description: Generate a new hero character concept
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.HeroResponse'
+      summary: Generate a new random hero
+      tags:
+      - hero
+swagger: "2.0"
