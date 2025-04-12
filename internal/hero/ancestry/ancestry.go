@@ -33,14 +33,17 @@ func init() {
 	}
 }
 
+// Select choose randomly an ancestry.
 func Select() Ancestry {
 	return internal.Choose(ancestries)
 }
 
+// All returns all available ancestries.
 func All() []Ancestry {
 	return ancestries
 }
 
+// Get finds an ancestry by name.
 func Get(name string) (Ancestry, error) {
 	index := slices.IndexFunc(ancestries, func(r Ancestry) bool {
 		return r.Name == name

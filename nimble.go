@@ -2,6 +2,7 @@ package nimble
 
 import (
 	"context"
+	"net/http"
 	"sync/atomic"
 
 	"github.com/meshenka/nimble/handler"
@@ -32,7 +33,12 @@ func Serve(parent context.Context, options ...Option) error {
 		mux.Handle("GET /api/classes/{name}", handler.GetClass())
 		mux.Handle("GET /api/ancestries", handler.Races())
 		mux.Handle("GET /api/ancestries/{name}", handler.GetRace())
-		mw := transport.Use(log.HTTPMiddleware())
+		// Create a file server handler for the static assets directory
+		fs := http.FileServer(http.Dir("./public"))
+		mux.Handle("GET /", http.StripPrefix("/", fs))
+		mw := transport.Use(
+			log.HTTPMiddleware(),
+		)
 		srv := transport.NewServer(mw.Wrap(mux))
 		return transport.Serve(ctx, cfg.ApplicationHTTPServerAddr, srv, nil, httpReady)
 	})

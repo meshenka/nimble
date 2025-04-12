@@ -22,6 +22,7 @@ ARG BUILD_DATE=$(date +%s)
 LABEL rebuild_trigger=$BUILD_DATE
 COPY --from=builder /bin/api /api
 
+COPY --from=builder /app/public /public
 EXPOSE 8080 
 
 CMD [ "/api" ]
