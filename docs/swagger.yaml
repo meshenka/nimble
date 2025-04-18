@@ -87,6 +87,8 @@ definitions:
     properties:
       hero:
         $ref: '#/definitions/hero.Hero'
+      id:
+        type: integer
       sentence:
         type: string
     type: object
@@ -236,6 +238,20 @@ paths:
           schema:
             $ref: '#/definitions/handler.HeroResponse'
       summary: Generate a new random hero
+      tags:
+      - hero
+  /heros/{id}:
+    get:
+      description: Every random hero is generated from a seed. Once seed is set, the
+        generation is deterministic.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.HeroResponse'
+      summary: Get a specific hero from it's id
       tags:
       - hero
 swagger: "2.0"

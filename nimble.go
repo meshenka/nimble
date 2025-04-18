@@ -42,7 +42,8 @@ func Serve(parent context.Context, options ...Option) error {
 
 	group.Go(func() error {
 		mux := transport.NewServeMux()
-		mux.Handle("GET /api/heros", handler.Hero())
+		mux.Handle("GET /api/heros", handler.RandomHero())
+		mux.Handle("GET /api/heros/{id}", handler.GetHero())
 		mux.Handle("GET /api/classes", handler.Classes())
 		mux.Handle("GET /api/classes/{name}", handler.GetClass())
 		mux.Handle("GET /api/ancestries", handler.Ancestries())
