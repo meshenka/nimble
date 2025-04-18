@@ -23,11 +23,11 @@ primary_region = 'cdg'
   processes = ['app']
 
 [[http_service.headers]]
-  for = "/api/*"
+  for = '/api/*'
   [http_service.headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
-    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Access-Control-Allow-Origin = '*'
+    Access-Control-Allow-Methods = 'GET, POST, PUT, DELETE, OPTIONS'
+    Access-Control-Allow-Headers = 'Content-Type, Authorization'
 
 [[vm]]
   memory = '256mb'

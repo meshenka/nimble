@@ -19,6 +19,7 @@ fix: ## Fix linter errors automatically
 
 test: ## run all tests
 	go test -cover -race ./...
+
 unit: ## run unit tests
 	go test -cover -short -race ./...
 

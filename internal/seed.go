@@ -6,18 +6,18 @@ import (
 )
 
 var (
-	seed uint64
+	Seed uint64
 	rn   *rand.Rand
 )
 
 func init() {
-	seed = uint64(time.Now().UnixNano())   //nolint:gosec // G115 int64->uint64 overflow
-	rn = rand.New(rand.NewPCG(seed, 3999)) //nolint:gosec
+	Seed = uint64(time.Now().UnixNano())   //nolint:gosec // G115 int64->uint64 overflow
+	rn = rand.New(rand.NewPCG(Seed, 3999)) //nolint:gosec
 }
 
 func Configure(s uint64) {
-	seed = s
-	rn = rand.New(rand.NewPCG(seed, 2999)) //nolint:gosec
+	Seed = s
+	rn = rand.New(rand.NewPCG(Seed, 2999)) //nolint:gosec
 }
 
 func Choose[T any](options []T) T {
