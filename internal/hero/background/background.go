@@ -1,6 +1,7 @@
 package background
 
 import (
+	"context"
 	_ "embed"
 	"encoding/json"
 	"errors"
@@ -27,8 +28,8 @@ func init() {
 }
 
 // Select generate a random Background.
-func Select() Background {
-	return internal.Choose(bgs)
+func Select(ctx context.Context) Background {
+	return internal.Choose(ctx, bgs)
 }
 
 // All returns all available backgrounds.

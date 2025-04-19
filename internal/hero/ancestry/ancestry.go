@@ -1,6 +1,7 @@
 package ancestry
 
 import (
+	"context"
 	_ "embed"
 	"encoding/json"
 	"errors"
@@ -34,8 +35,8 @@ func init() {
 }
 
 // Select choose randomly an ancestry.
-func Select() Ancestry {
-	return internal.Choose(ancestries)
+func Select(ctx context.Context) Ancestry {
+	return internal.Choose(ctx, ancestries)
 }
 
 // All returns all available ancestries.

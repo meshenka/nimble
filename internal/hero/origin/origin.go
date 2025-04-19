@@ -1,6 +1,10 @@
 package origin
 
-import "github.com/meshenka/nimble/internal"
+import (
+	"context"
+
+	"github.com/meshenka/nimble/internal"
+)
 
 var origins = []string{
 	"The Shadow Blight",
@@ -41,8 +45,8 @@ var origins = []string{
 	"a Sunken Hold",
 }
 
-func Select() string {
-	return internal.Choose(origins)
+func Select(ctx context.Context) string {
+	return internal.Choose(ctx, origins)
 }
 
 func All() []string {

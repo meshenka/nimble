@@ -1,6 +1,10 @@
 package motivation
 
-import "github.com/meshenka/nimble/internal"
+import (
+	"context"
+
+	"github.com/meshenka/nimble/internal"
+)
 
 var motivations = []string{
 	"I owe a life debt to someone in my party",
@@ -22,8 +26,8 @@ var motivations = []string{
 	"I'm following a prophecy",
 }
 
-func Select() string {
-	return internal.Choose(motivations)
+func Select(ctx context.Context) string {
+	return internal.Choose(ctx, motivations)
 }
 
 func All() []string {

@@ -9,7 +9,7 @@ import (
 )
 
 func TestSelect(t *testing.T) {
-	have := quirk.Select()
+	have := quirk.Select(t.Context())
 	require.Len(t, have, 3)
 	assert.NotZero(t, have[0])
 }

@@ -27,7 +27,7 @@ func TestGetHeroHandler(t *testing.T) {
 
 	resp := new(handler.HeroResponse)
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), resp))
-	assert.Equal(t, seed, resp.ID)
+	assert.Equal(t, want, resp.ID)
 	assert.Equal(t, "Turtlefolk", resp.Hero.Ancestry.Name)
 	assert.Equal(t, "Mage", resp.Hero.Class.Name)
 	assert.Equal(t, "Wild One", resp.Hero.Background.Name)

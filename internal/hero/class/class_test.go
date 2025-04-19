@@ -10,7 +10,7 @@ import (
 
 func TestSelect(t *testing.T) {
 	assert.NotPanics(t, func() {
-		c := class.Select()
+		c := class.Select(t.Context())
 		t.Log(c)
 	})
 }

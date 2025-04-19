@@ -9,7 +9,7 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	h := hero.New()
+	h := hero.New(t.Context())
 	require.NotZero(t, h)
 
 	t.Run("string", func(t *testing.T) {
