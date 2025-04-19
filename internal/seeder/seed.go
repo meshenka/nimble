@@ -1,4 +1,4 @@
-package internal
+package seeder
 
 import (
 	"context"
@@ -28,12 +28,6 @@ func Configure(s uint64) Rand {
 		Seed: s,
 		rnd:  rn,
 	}
-}
-
-func Choose[T any](ctx context.Context, options []T) T {
-	seeder := Ctx(ctx)
-	idx := seeder.IntN(len(options))
-	return options[idx]
 }
 
 type Rand struct {

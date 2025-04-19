@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/meshenka/nimble/internal"
 	"github.com/meshenka/nimble/internal/hero"
 	"github.com/meshenka/nimble/internal/log"
+	"github.com/meshenka/nimble/internal/seeder"
 )
 
 type HeroResponse struct {
@@ -26,10 +26,10 @@ type HeroResponse struct {
 func RandomHero() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		id := uint64(time.Now().UnixNano()) //nolint:gosec // G115 int64->uint64 overflow
-		seeder := internal.Configure(id)
-		ctx := internal.WithContext(r.Context(), seeder)
+		s := seeder.Configure(id)
+		ctx := seeder.WithContext(r.Context(), s)
 		h := hero.New(ctx)
-		writeJSON(ctx, w, response(h, seeder))
+		writeJSON(ctx, w, response(h, s))
 	})
 }
 
@@ -50,17 +50,17 @@ func GetHero() http.Handler {
 			return
 		}
 
-		seeder := internal.Configure(id)
-		ctx := internal.WithContext(r.Context(), seeder)
+		s := seeder.Configure(id)
+		ctx := seeder.WithContext(r.Context(), s)
 		h := hero.New(ctx)
-		writeJSON(ctx, w, response(h, seeder))
+		writeJSON(ctx, w, response(h, s))
 	})
 }
 
-func response(h hero.Hero, seeder internal.Rand) HeroResponse {
+func response(h hero.Hero, s seeder.Rand) HeroResponse {
 	return HeroResponse{
 		Hero:     h,
 		Sentence: hero.String(h),
-		ID:       strconv.FormatUint(seeder.Seed, 10),
+		ID:       strconv.FormatUint(s.Seed, 10),
 	}
 }
