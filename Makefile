@@ -1,9 +1,17 @@
 .DEFAULT_GOAL := build
 .PHONY: api cli docs
 
-build:
+npm-install:
+	pnpm install
+
+frontend: 
+	pnpm run build
+
+backend:
 	go build -o api cmd/api/main.go
 	go build -o cli cmd/rnd/main.go
+
+build: front backend
 
 cli:
 	go run cmd/rnd/main.go
