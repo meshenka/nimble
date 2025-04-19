@@ -9,7 +9,7 @@ import (
 
 func TestSelect(t *testing.T) {
 	assert.NotPanics(t, func() {
-		bg := motivation.Select()
+		bg := motivation.Select(t.Context())
 		t.Log(bg)
 	})
 }

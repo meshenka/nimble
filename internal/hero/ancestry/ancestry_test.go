@@ -10,7 +10,7 @@ import (
 
 func TestSelect(t *testing.T) {
 	assert.NotPanics(t, func() {
-		bg := ancestry.Select()
+		bg := ancestry.Select(t.Context())
 		t.Log(bg)
 	})
 }

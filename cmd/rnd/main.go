@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log/slog"
@@ -18,7 +19,7 @@ func main() {
 	flag.Parse()
 	internal.Configure(dst)
 	log.Configure(slog.LevelDebug)
-	h := hero.New()
+	h := hero.New(context.Background())
 	fmt.Println(hero.String(h))
 	slog.Info("seeded with", "seed", dst)
 	slog.Debug("hero details", "hero", h)

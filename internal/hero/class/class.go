@@ -1,6 +1,7 @@
 package class
 
 import (
+	"context"
 	_ "embed"
 	"encoding/json"
 	"errors"
@@ -32,8 +33,8 @@ func init() {
 	}
 }
 
-func Select() Class {
-	return internal.Choose(classes)
+func Select(ctx context.Context) Class {
+	return internal.Choose(ctx, classes)
 }
 
 func All() []Class {

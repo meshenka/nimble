@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/meshenka/nimble/internal"
 	"github.com/meshenka/nimble/internal/hero"
@@ -12,7 +13,7 @@ import (
 type HeroResponse struct {
 	Hero     hero.Hero `json:"hero"`
 	Sentence string    `json:"sentence"`
-	ID       uint64    `json:"id"`
+	ID       string    `json:"id"`
 }
 
 // RandomHero godoc
@@ -24,12 +25,11 @@ type HeroResponse struct {
 // @Router       /heros [get]func RandomHero() http.Handler {
 func RandomHero() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		h := hero.New()
-		writeJSON(r.Context(), w, HeroResponse{
-			Hero:     h,
-			Sentence: hero.String(h),
-			ID:       internal.Seed,
-		})
+		id := uint64(time.Now().UnixNano()) //nolint:gosec // G115 int64->uint64 overflow
+		seeder := internal.Configure(id)
+		ctx := internal.WithContext(r.Context(), seeder)
+		h := hero.New(ctx)
+		writeJSON(ctx, w, response(h, seeder))
 	})
 }
 
@@ -50,12 +50,17 @@ func GetHero() http.Handler {
 			return
 		}
 
-		internal.Configure(id)
-		h := hero.New()
-		writeJSON(r.Context(), w, HeroResponse{
-			Hero:     h,
-			Sentence: hero.String(h),
-			ID:       internal.Seed,
-		})
+		seeder := internal.Configure(id)
+		ctx := internal.WithContext(r.Context(), seeder)
+		h := hero.New(ctx)
+		writeJSON(ctx, w, response(h, seeder))
 	})
+}
+
+func response(h hero.Hero, seeder internal.Rand) HeroResponse {
+	return HeroResponse{
+		Hero:     h,
+		Sentence: hero.String(h),
+		ID:       strconv.FormatUint(seeder.Seed, 10),
+	}
 }

@@ -1,6 +1,10 @@
 package quirk
 
-import "github.com/meshenka/nimble/internal"
+import (
+	"context"
+
+	"github.com/meshenka/nimble/internal"
+)
 
 var quirks = []string{
 	"Adaptable",
@@ -97,10 +101,10 @@ var quirks = []string{
 	"Witty",
 }
 
-func Select() []string {
+func Select(ctx context.Context) []string {
 	descriptors := make([]string, 0, 3)
 	for range 3 {
-		descriptors = append(descriptors, internal.Choose(quirks))
+		descriptors = append(descriptors, internal.Choose(ctx, quirks))
 	}
 	return descriptors
 }

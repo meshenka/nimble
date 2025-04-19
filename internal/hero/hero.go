@@ -1,6 +1,7 @@
 package hero
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/meshenka/nimble/internal/hero/ancestry"
@@ -20,14 +21,14 @@ type Hero struct {
 	Quirks     []string              `json:"quirks"`
 }
 
-func New() Hero {
+func New(ctx context.Context) Hero {
 	return Hero{
-		Ancestry:   ancestry.Select(),
-		Class:      class.Select(),
-		Motivation: motivation.Select(),
-		Background: background.Select(),
-		Origin:     origin.Select(),
-		Quirks:     quirk.Select(),
+		Ancestry:   ancestry.Select(ctx),
+		Class:      class.Select(ctx),
+		Motivation: motivation.Select(ctx),
+		Background: background.Select(ctx),
+		Origin:     origin.Select(ctx),
+		Quirks:     quirk.Select(ctx),
 	}
 }
 
