@@ -1,2 +1,4 @@
 api
 cli
+node_modules
+public/bundle.js*
