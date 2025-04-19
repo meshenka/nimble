@@ -40,8 +40,8 @@ ARG BUILD_DATE=$(date +%s)
 LABEL rebuild_trigger=$BUILD_DATE
 COPY --from=builder /bin/api /api
 
-COPY --from=builder /app/public/index.html /public
-COPY --from=frontend /app/public/bundle.js /public
+COPY --from=builder /app/public/index.html /public/index.html
+COPY --from=frontend /app/public/bundle.js /public/bundle.js
 
 EXPOSE 8080 
 
