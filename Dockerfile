@@ -1,3 +1,4 @@
+# NOTE: build binary
 FROM golang:1.24-bookworm AS builder
 
 RUN apt update
@@ -12,6 +13,23 @@ RUN  go mod download && go mod verify
 RUN mkdir -p /bin
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -v -o /bin/api ./cmd/api/main.go
 
+# NOTE: build frontend
+FROM node:18-alpine AS frontend
+
+RUN npm install -g pnpm
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml* ./
+
+RUN pnpm install --frozen-lockfile
+
+# Copy the rest of the application
+COPY . .
+
+# Build the application
+RUN pnpm run build
+
 FROM scratch
 
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
@@ -22,7 +40,9 @@ ARG BUILD_DATE=$(date +%s)
 LABEL rebuild_trigger=$BUILD_DATE
 COPY --from=builder /bin/api /api
 
-COPY --from=builder /app/public /public
+COPY --from=builder /app/public/index.html /public
+COPY --from=frontend /app/public/bundle.js /public
+
 EXPOSE 8080 
 
 CMD [ "/api" ]

@@ -2,7 +2,7 @@
 .PHONY: api cli docs
 
 npm-install:
-	pnpm install --save-dev ts-loader @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescript babel-loader webpack webpack-cli
+	pnpm install
 
 frontend: 
 	pnpm run build
