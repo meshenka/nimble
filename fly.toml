@@ -24,7 +24,7 @@ primary_region = 'cdg'
 
 [[http_service.headers]]
   for = '/api/*'
-  [http_service.headers.values]
+  [http_service.http_options.response.headers]
     Access-Control-Allow-Origin = '*'
     Access-Control-Allow-Methods = 'GET, POST, PUT, DELETE, OPTIONS'
     Access-Control-Allow-Headers = 'Content-Type, Authorization'
