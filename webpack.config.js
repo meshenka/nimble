@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './public/index.tsx',
+  entry: './frontend/src/index.tsx',
   mode: 'production',
   resolveLoader: {
     modules: [path.resolve(__dirname, 'node_modules')]

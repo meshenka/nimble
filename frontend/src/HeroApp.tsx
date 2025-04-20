@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
+import { HandlerHeroResponse } from './types';
+import Link from './Link';
 
 interface HeroAppProps {
   // Add any props your component needs here
 }
 
 const HeroApp: React.FC<HeroAppProps> = () => {
-  const [sentence, setSentence] = useState<string>('');
+  const [response, setResponse] = useState<HandlerHeroResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
   const fetchHeroSentence = async (): Promise<void> => {
     setLoading(true);
     setError('');
-    
+
     try {
       const response = await fetch('/api/heros');
       const data = await response.json();
-      setSentence(data.sentence);
+      setResponse(data)
     } catch (err) {
       setError('Failed to fetch data. Make sure your API is running.');
       console.error('Error fetching data:', err);
@@ -35,20 +37,21 @@ const HeroApp: React.FC<HeroAppProps> = () => {
       >
         {loading ? 'Loading...' : 'Let\'s See!'}
       </button>
-      
-      {sentence && (
+
+      {response && (
         <div className="sentence-container">
-          <p className="sentence-text">{sentence}</p>
+          <p className="sentence-text">{response.sentence}</p>
+          <Link href={`/api/heros/${response.id}`} text='Bookmark' />
         </div>
       )}
-      
+
       {error && (
         <div className="error-container">
           <p>{error}</p>
         </div>
       )}
-    </div>
-  );
+    </div >
+  )
 };
 
 export default HeroApp;
