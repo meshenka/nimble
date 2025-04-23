@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := build
-.PHONY: api cli docs
+.PHONY: api cli docs frontend
 
 npm-install:
 	pnpm install
@@ -11,7 +11,7 @@ backend:
 	go build -o api cmd/api/main.go
 	go build -o cli cmd/rnd/main.go
 
-build: front backend
+build: frontend backend
 
 cli:
 	go run cmd/rnd/main.go
@@ -31,8 +31,12 @@ test: ## run all tests
 unit: ## run unit tests
 	go test -cover -short -race ./...
 
+types:
+	npx swagger-typescript-api generate -p ./docs/swagger.yaml -o ./frontend/src -n types.ts
+
 docs: ## generate api documentation
 	go run github.com/swaggo/swag/cmd/swag@latest init \
+		--requiredByDefault \
 		-g ./nimble.go \
 		--dir ./ \
 		-ot yaml

@@ -12,6 +12,12 @@ definitions:
         type: string
       type:
         type: string
+    required:
+    - capacity
+    - description
+    - name
+    - size
+    - type
     type: object
   ancestry.Capacity:
     properties:
@@ -21,6 +27,9 @@ definitions:
         type: array
       name:
         type: string
+    required:
+    - effects
+    - name
     type: object
   background.Background:
     properties:
@@ -32,6 +41,10 @@ definitions:
         type: string
       requirements:
         type: string
+    required:
+    - abilities
+    - name
+    - requirements
     type: object
   class.Class:
     properties:
@@ -61,6 +74,15 @@ definitions:
         items:
           type: string
         type: array
+    required:
+    - armor
+    - hit_die
+    - key_stats
+    - name
+    - saves
+    - starting_gear
+    - starting_hp
+    - weapons
     type: object
   handler.AncestriesList:
     properties:
@@ -68,6 +90,8 @@ definitions:
         items:
           $ref: '#/definitions/ancestry.Ancestry'
         type: array
+    required:
+    - ancestries
     type: object
   handler.BackgroundsList:
     properties:
@@ -75,6 +99,8 @@ definitions:
         items:
           $ref: '#/definitions/background.Background'
         type: array
+    required:
+    - backgrounds
     type: object
   handler.ClassesList:
     properties:
@@ -82,6 +108,8 @@ definitions:
         items:
           $ref: '#/definitions/class.Class'
         type: array
+    required:
+    - classes
     type: object
   handler.HeroResponse:
     properties:
@@ -91,6 +119,10 @@ definitions:
         type: string
       sentence:
         type: string
+    required:
+    - hero
+    - id
+    - sentence
     type: object
   hero.Hero:
     properties:
@@ -108,6 +140,13 @@ definitions:
         items:
           type: string
         type: array
+    required:
+    - ancestry
+    - background
+    - class
+    - motivation
+    - origin
+    - quirks
     type: object
 externalDocs:
   description: OpenAPI
