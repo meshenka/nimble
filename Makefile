@@ -20,10 +20,10 @@ api:
 	go run cmd/api/main.go
 
 lint: ## Run linters
-	go run github.com/golangci/golangci-lint/cmd/golangci-lint@latest run
+	go tool golangci-lint run
 
 fix: ## Fix linter errors automatically
-	go run github.com/golangci/golangci-lint/cmd/golangci-lint@latest run --fix
+	go tool golangci-lint run --fix
 
 test: ## run all tests
 	go test -cover -race ./...
@@ -35,7 +35,7 @@ types:
 	npx swagger-typescript-api generate -p ./docs/swagger.yaml -o ./frontend/src -n types.ts
 
 docs: ## generate api documentation
-	go run github.com/swaggo/swag/cmd/swag@latest init \
+	go tool swag init \
 		--requiredByDefault \
 		-g ./nimble.go \
 		--dir ./ \
