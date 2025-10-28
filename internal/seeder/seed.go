@@ -1,3 +1,4 @@
+// Package seeder provides a seeded random number generator.
 package seeder
 
 import (
@@ -7,6 +8,7 @@ import (
 )
 
 var (
+	// Seed is the seed used for the random number generator.
 	Seed          uint64
 	rn            *rand.Rand
 	defaultSeeder Rand
@@ -21,6 +23,7 @@ func init() {
 	}
 }
 
+// Configure configures the seeder with a specific seed.
 func Configure(s uint64) Rand {
 	Seed = s
 	rn = rand.New(rand.NewPCG(Seed, 2999)) //nolint:gosec
@@ -30,11 +33,13 @@ func Configure(s uint64) Rand {
 	}
 }
 
+// Rand is a seeded random number generator.
 type Rand struct {
 	rnd  *rand.Rand
 	Seed uint64
 }
 
+// IntN returns a random integer in [0, n).
 func (r Rand) IntN(n int) int {
 	return r.rnd.IntN(n)
 }
@@ -43,14 +48,15 @@ type key int
 
 const rndKey key = iota
 
+// WithContext returns a new context with the seeder.
 func WithContext(parent context.Context, seeder Rand) context.Context {
 	return context.WithValue(parent, rndKey, seeder)
 }
 
+// Ctx returns the Rand seeder from the context, or the default seeder if not found.
 func Ctx(ctx context.Context) Rand {
-	seeder := ctx.Value(rndKey)
-	if seeder != nil {
-		return seeder.(Rand)
+	if seeder, ok := ctx.Value(rndKey).(Rand); ok {
+		return seeder
 	}
 	return defaultSeeder
 }

@@ -1,3 +1,4 @@
+// Package background provides the background for a hero.
 package background
 
 import (
@@ -10,6 +11,7 @@ import (
 	"github.com/meshenka/nimble/internal"
 )
 
+// Background represents a hero's background.
 type Background struct {
 	Name         string   `json:"name"`
 	Requirements string   `json:"requirements"`

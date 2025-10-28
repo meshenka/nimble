@@ -10,19 +10,22 @@ import (
 	"github.com/meshenka/nimble/internal/seeder"
 )
 
+// HeroResponse is the response for a hero request.
 type HeroResponse struct {
 	Hero     hero.Hero `json:"hero"`
 	Sentence string    `json:"sentence"`
 	ID       string    `json:"id"`
 }
 
-// RandomHero godoc
-// @Summary      Generate a new random hero
-// @Description  Generate a new hero character concept
+// RandomHero godoc.
+//
+// @Summary      Generate a new random hero.
+// @Description  Generate a new hero character concept.
 // @Tags         hero
 // @Produce      json
 // @Success      200  {object}  HeroResponse
-// @Router       /heros [get]func RandomHero() http.Handler {
+// @Router       /heros [get]
+// .
 func RandomHero() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		id := uint64(time.Now().UnixNano()) //nolint:gosec // G115 int64->uint64 overflow
@@ -33,19 +36,21 @@ func RandomHero() http.Handler {
 	})
 }
 
-// GetHero godoc
-// @Summary      Get a specific hero from it's id
+// GetHero godoc.
+//
+// @Summary      Get a specific hero from it's id.
 // @Description  Every random hero is generated from a seed. Once seed is set, the generation is deterministic.
 // @Tags         hero
 // @Produce      json
 // @Success      200  {object}  HeroResponse
-// @Router       /heros/{id} [get]func GetHero() http.Handler {
+// @Router       /heros/{id} [get]
+// .
 func GetHero() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		v := r.PathValue("id")
 		id, err := strconv.ParseUint(v, 10, 64)
 		if err != nil {
-			log.Ctx(r.Context()).Error("invalid id", log.Err(err), "hero_id", v)
+			log.Ctx(r.Context()).Error("invalid id", "error", err, "hero_id", v)
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}

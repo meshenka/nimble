@@ -166,7 +166,7 @@ info:
 paths:
   /ancestries:
     get:
-      description: Get all ancestries
+      description: Get all ancestries.
       produces:
       - application/json
       responses:
@@ -174,12 +174,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/handler.AncestriesList'
-      summary: All ancestries
+      summary: All ancestries.
       tags:
       - ancestry
   /ancestries/{name}:
     get:
-      description: Get one ancestry by name
+      description: Get one ancestry by name.
       parameters:
       - description: Ancestry name
         in: path
@@ -195,12 +195,12 @@ paths:
             $ref: '#/definitions/ancestry.Ancestry'
         "404":
           description: Not Found
-      summary: Get ancestry
+      summary: Get ancestry.
       tags:
       - ancestry
   /backgrounds:
     get:
-      description: List all available backgrounds
+      description: List all available backgrounds.
       produces:
       - application/json
       responses:
@@ -208,12 +208,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/handler.BackgroundsList'
-      summary: All backgrounds
+      summary: All backgrounds.
       tags:
       - background
   /backgrounds/{name}:
     get:
-      description: Get a background by name
+      description: Get a background by name.
       parameters:
       - description: Background name
         in: path
@@ -229,12 +229,12 @@ paths:
             $ref: '#/definitions/background.Background'
         "404":
           description: Not Found
-      summary: One Background
+      summary: One Background.
       tags:
       - background
   /classes:
     get:
-      description: Get all classes
+      description: Get all classes.
       produces:
       - application/json
       responses:
@@ -242,12 +242,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/handler.ClassesList'
-      summary: All classes
+      summary: All classes.
       tags:
       - class
   /classes/{name}:
     get:
-      description: Get one class by name
+      description: Get one class by name.
       parameters:
       - description: Class name
         in: path
@@ -263,12 +263,12 @@ paths:
             $ref: '#/definitions/class.Class'
         "404":
           description: Not Found
-      summary: Get class
+      summary: Get class.
       tags:
       - class
   /heros:
     get:
-      description: Generate a new hero character concept
+      description: Generate a new hero character concept.
       produces:
       - application/json
       responses:
@@ -276,7 +276,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/handler.HeroResponse'
-      summary: Generate a new random hero
+      summary: Generate a new random hero.
       tags:
       - hero
   /heros/{id}:
@@ -290,7 +290,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/handler.HeroResponse'
-      summary: Get a specific hero from it's id
+      summary: Get a specific hero from it's id.
       tags:
       - hero
 swagger: "2.0"

@@ -1,3 +1,4 @@
+// Package handler provides http handlers for the application.
 package handler
 
 import (
@@ -7,16 +8,19 @@ import (
 	"github.com/meshenka/nimble/internal/log"
 )
 
+// AncestriesList is a list of ancestries.
 type AncestriesList struct {
 	Ancestries []ancestry.Ancestry `json:"ancestries"`
 }
 
-// @Summary      All ancestries
-// @Description  Get all ancestries
+// Ancestries returns a http.Handler that serves a list of all ancestries.
+// @Summary      All ancestries.
+// @Description  Get all ancestries.
 // @Tags         ancestry
 // @Produce      json
 // @Success      200  {object}  AncestriesList
-// @Router       /ancestries [get]func Classes() http.Handler {
+// @Router       /ancestries [get]
+// .
 func Ancestries() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Cache-Control", "public, max-age=5184000, s-maxage=5184000") // 24h
@@ -26,14 +30,16 @@ func Ancestries() http.Handler {
 	})
 }
 
-// @Summary      Get ancestry
-// @Description  Get one ancestry by name
+// GetAncestry returns a http.Handler that serves a single ancestry by name.
+// @Summary      Get ancestry.
+// @Description  Get one ancestry by name.
 // @Tags         ancestry
 // @Param        name   path      string  true  "Ancestry name"
 // @Produce      json
 // @Success      200  {object}  ancestry.Ancestry
 // @Success      404
-// @Router       /ancestries/{name} [get]func Classes() http.Handler {
+// @Router       /ancestries/{name} [get]
+// .
 func GetAncestry() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Cache-Control", "public, max-age=5184000, s-maxage=5184000") // 24h
@@ -41,7 +47,7 @@ func GetAncestry() http.Handler {
 
 		c, err := ancestry.Get(name)
 		if err != nil {
-			log.Ctx(r.Context()).Error("ancestry not found", log.Err(err), "ancestry", name)
+			log.Ctx(r.Context()).Error("ancestry not found", "error", err, "ancestry", name)
 			w.WriteHeader(http.StatusNotFound)
 			return
 		}

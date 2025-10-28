@@ -1,3 +1,4 @@
+// Package main starts the nimble server.
 package main
 
 import (

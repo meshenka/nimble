@@ -1,3 +1,4 @@
+// Package hero provides the hero generation logic.
 package hero
 
 import (
@@ -12,6 +13,7 @@ import (
 	"github.com/meshenka/nimble/internal/hero/quirk"
 )
 
+// Hero represents a generated hero character.
 type Hero struct {
 	Ancestry   ancestry.Ancestry     `json:"ancestry"`
 	Class      class.Class           `json:"class"`
@@ -21,6 +23,7 @@ type Hero struct {
 	Quirks     []string              `json:"quirks"`
 }
 
+// New creates a new random hero.
 func New(ctx context.Context) Hero {
 	return Hero{
 		Ancestry:   ancestry.Select(ctx),
@@ -32,6 +35,7 @@ func New(ctx context.Context) Hero {
 	}
 }
 
+// String returns a string representation of a hero.
 func String(h Hero) string {
 	return fmt.Sprintf("I am a %s %s %s from %s who was %s that end up adventuring cause %s",
 		h.Quirks[0],

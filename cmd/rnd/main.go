@@ -1,3 +1,4 @@
+// Package main generates a random hero.
 package main
 
 import (
@@ -15,13 +16,13 @@ import (
 func main() {
 	// accept a seed for Deterministic setting
 	var dst uint64
-	flag.Uint64Var(&dst, "seed", rand.Uint64(), "set a seed to have deterministic output")
+	flag.Uint64Var(&dst, "seed", rand.Uint64(), "set a seed to have deterministic output") //nolint:gosec
 	flag.Parse()
 	s := seeder.Configure(dst)
 	ctx := seeder.WithContext(context.Background(), s)
 	log.Configure(slog.LevelDebug)
 	h := hero.New(ctx)
-	fmt.Println(hero.String(h))
+	fmt.Println(hero.String(h)) //nolint:forbidigo
 	slog.Info("seeded with", "seed", s.Seed)
 	slog.Debug("hero details", "hero", h)
 }

@@ -1,3 +1,4 @@
+// Package origin provides the origin for a hero.
 package origin
 
 import (
@@ -45,10 +46,12 @@ var origins = []string{
 	"a Sunken Hold",
 }
 
+// Select returns a random origin.
 func Select(ctx context.Context) string {
 	return internal.Choose(ctx, origins)
 }
 
+// All returns all available origins.
 func All() []string {
 	return origins
 }

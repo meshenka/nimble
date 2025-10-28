@@ -1,3 +1,4 @@
+// Package quirk provides the quirk for a hero.
 package quirk
 
 import (
@@ -101,6 +102,7 @@ var quirks = []string{
 	"Witty",
 }
 
+// Select returns a random quirk.
 func Select(ctx context.Context) []string {
 	descriptors := make([]string, 0, 3)
 	for range 3 {
