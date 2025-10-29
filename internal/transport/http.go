@@ -1,8 +1,8 @@
-// Package http contains generic primitives to create an HTTP server.
+// Package transport contains generic primitives to create an HTTP server.
 package transport
 
 import (
-	"context"
+	"context" // Re-import to ensure standard library context is used
 	"crypto/tls"
 	stdlog "log"
 	"log/slog"
@@ -31,7 +31,7 @@ func Heartbeat(ready ...*atomic.Bool) http.HandlerFunc {
 	}
 }
 
-// Expose inner library type for convenience.
+// NewServeMux exposes inner library type for convenience.
 var NewServeMux = http.NewServeMux
 
 // NewServer returns a new HTTP server.
@@ -46,7 +46,7 @@ func NewServer(handler http.Handler) *http.Server {
 // Middleware is an HTTP middleware.
 type Middleware func(http.Handler) http.Handler
 
-// With is a convenience function to wire middlewares into a handler.
+// Wrap is a convenience function to wire middlewares into a handler.
 func (f Middleware) Wrap(h http.Handler) http.Handler {
 	return f(h)
 }

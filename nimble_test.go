@@ -38,7 +38,7 @@ func TestAPI(t *testing.T) {
 		resp := new(Response)
 		require.NoError(t, json.Unmarshal(data, resp))
 		t.Log(resp)
-		assert.NotZero(t, resp.Sentence)
+		assert.NotEmpty(t, resp.Sentence)
 	})
 
 	t.Run("classes", func(t *testing.T) {
@@ -68,8 +68,8 @@ func TestAPI(t *testing.T) {
 			_, err = io.ReadAll(res.Body)
 			require.NoError(t, err)
 		})
-
 	})
+
 	t.Run("ancestries", func(t *testing.T) {
 		t.Run("get all", func(t *testing.T) {
 			req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, "http://"+addr+"/api/ancestries", http.NoBody)
@@ -152,7 +152,7 @@ func setup(t *testing.T) (string, context.CancelFunc) {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		require.NoError(t, nimble.Serve(ctx,
+		assert.NoError(t, nimble.Serve(ctx,
 			nimble.WithApplicationServer(httpAddr),
 			nimble.WithLogLevel("debug"),
 		))

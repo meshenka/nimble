@@ -14,6 +14,6 @@ func TestNew(t *testing.T) {
 
 	t.Run("string", func(t *testing.T) {
 		resp := hero.String(h)
-		assert.NotEqual(t, "", resp)
+		assert.NotEmpty(t, resp)
 	})
 }

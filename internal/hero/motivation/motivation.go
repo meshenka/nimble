@@ -1,3 +1,4 @@
+// Package motivation provides the motivation for a hero.
 package motivation
 
 import (
@@ -26,10 +27,12 @@ var motivations = []string{
 	"I'm following a prophecy",
 }
 
+// Select returns a random motivation.
 func Select(ctx context.Context) string {
 	return internal.Choose(ctx, motivations)
 }
 
+// All returns all available motivations.
 func All() []string {
 	return motivations
 }

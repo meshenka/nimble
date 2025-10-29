@@ -1,3 +1,4 @@
+// Package ancestry provides the ancestry for a hero.
 package ancestry
 
 import (
@@ -10,11 +11,13 @@ import (
 	"github.com/meshenka/nimble/internal"
 )
 
+// Capacity represents a special ability of an ancestry.
 type Capacity struct {
 	Name    string   `json:"name"`
 	Effects []string `json:"effects"`
 }
 
+// Ancestry represents a hero's ancestry.
 type Ancestry struct {
 	Name        string   `json:"name"`
 	Size        string   `json:"size"`

@@ -1,3 +1,4 @@
+// Package class provides the class for a hero.
 package class
 
 import (
@@ -10,6 +11,7 @@ import (
 	"github.com/meshenka/nimble/internal"
 )
 
+// Class represents a hero's class.
 type Class struct {
 	Name         string   `json:"name"`
 	KeyStats     []string `json:"key_stats"`
@@ -33,14 +35,17 @@ func init() {
 	}
 }
 
+// Select returns a random class.
 func Select(ctx context.Context) Class {
 	return internal.Choose(ctx, classes)
 }
 
+// All returns all available classes.
 func All() []Class {
 	return classes
 }
 
+// Get returns a class by name.
 func Get(name string) (Class, error) {
 	index := slices.IndexFunc(classes, func(c Class) bool {
 		return c.Name == name

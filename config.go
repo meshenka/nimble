@@ -1,3 +1,4 @@
+// Package nimble provides the core functionality of the application.
 package nimble
 
 import (

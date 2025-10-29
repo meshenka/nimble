@@ -4,6 +4,7 @@ import (
 	"net/http"
 )
 
+// CORSMiddleware sets CORS headers and handles preflight requests.
 func CORSMiddleware() Middleware {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -13,7 +14,7 @@ func CORSMiddleware() Middleware {
 			w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 
 			// Handle preflight requests
-			if r.Method == "OPTIONS" {
+			if r.Method == http.MethodOptions {
 				w.WriteHeader(http.StatusOK)
 				return
 			}
