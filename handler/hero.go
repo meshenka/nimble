@@ -19,16 +19,28 @@ type HeroResponse struct {
 
 // RandomHero godoc.
 //
-// @Summary      Generate a new random hero.
-// @Description  Generate a new hero character concept.
+// @Summary      Generate a new hero.
+// @Description  Generate a new hero character concept. If 'seed' query parameter is provided, it returns a deterministic hero for that seed.
 // @Tags         hero
 // @Produce      json
+// @Param        seed  query     string  false  "Optional seed for deterministic generation"
 // @Success      200  {object}  HeroResponse
 // @Router       /heros [get]
 // .
 func RandomHero() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		id := uint64(time.Now().UnixNano())
+		var id uint64
+		if s := r.URL.Query().Get("seed"); s != "" {
+			var err error
+			id, err = strconv.ParseUint(s, 10, 64)
+			if err != nil {
+				log.Ctx(r.Context()).Error("invalid seed", "error", err, "seed", s)
+				w.WriteHeader(http.StatusBadRequest)
+				return
+			}
+		} else {
+			id = uint64(time.Now().UnixNano())
+		}
 		s := seeder.Configure(id)
 		ctx := seeder.WithContext(r.Context(), s)
 		h := hero.New(ctx)
