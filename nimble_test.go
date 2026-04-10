@@ -149,14 +149,12 @@ func setup(t *testing.T) (string, context.CancelFunc) {
 	httpAddr := addr()
 
 	wg := new(sync.WaitGroup)
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
+	wg.Go(func() {
 		assert.NoError(t, nimble.Serve(ctx,
 			nimble.WithApplicationServer(httpAddr),
 			nimble.WithLogLevel("debug"),
 		))
-	}()
+	})
 
 	return httpAddr, func() { cancel(); wg.Wait() }
 }
