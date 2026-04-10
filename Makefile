@@ -1,17 +1,17 @@
 .DEFAULT_GOAL := build
-.PHONY: api cli docs frontend
+.PHONY: api cli frontend
 
-npm-install:
+npm-install: ## install frontend
 	pnpm install
 
-frontend: 
+frontend: ## Build front end
 	pnpm run build
 
-backend:
+backend: ## Build backend
 	go build -o api cmd/api/main.go
 	go build -o cli cmd/rnd/main.go
 
-build: frontend backend
+build: docs types frontend backend ## build all
 
 cli:
 	go run cmd/rnd/main.go
@@ -19,11 +19,15 @@ cli:
 api:
 	go run cmd/api/main.go
 
+run: docs types frontend api  ## Build all and run api
+	go run cmd/api/main.go
+
 lint: ## Run linters
 	go tool golangci-lint run
 
 fix: ## Fix linter errors automatically
 	go tool golangci-lint run --fix
+	go fix ./...
 
 test: ## run all tests
 	go test -cover -race ./...
@@ -31,7 +35,7 @@ test: ## run all tests
 unit: ## run unit tests
 	go test -cover -short -race ./...
 
-types:
+types: docs/swagger.yaml ## generate frontend types
 	npx swagger-typescript-api generate -p ./docs/swagger.yaml -o ./frontend/src -n types.ts
 
 docs: ## generate api documentation

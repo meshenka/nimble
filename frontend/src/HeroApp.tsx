@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HandlerHeroResponse } from './types';
 import Link from './Link';
 
@@ -11,12 +11,13 @@ const HeroApp: React.FC<HeroAppProps> = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
-  const fetchHeroSentence = async (): Promise<void> => {
+  const fetchHeroSentence = async (seed?: string): Promise<void> => {
     setLoading(true);
     setError('');
 
     try {
-      const response = await fetch('/api/heros');
+      const url = seed ? `/api/heros/${seed}` : '/api/heros';
+      const response = await fetch(url);
       const data = await response.json();
       setResponse(data)
     } catch (err) {
@@ -27,11 +28,19 @@ const HeroApp: React.FC<HeroAppProps> = () => {
     }
   };
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const seed = params.get('seed');
+    if (seed) {
+      fetchHeroSentence(seed);
+    }
+  }, []);
+
   return (
     <div className="app-container">
       <h1 className="app-title">My F*cking Nimble 5e Hero</h1>
       <button
-        onClick={fetchHeroSentence}
+        onClick={() => fetchHeroSentence()}
         disabled={loading}
         className="btn"
       >
@@ -41,7 +50,7 @@ const HeroApp: React.FC<HeroAppProps> = () => {
       {response && (
         <div className="sentence-container">
           <p className="sentence-text">{response.sentence}</p>
-          <Link href={`/api/heros/${response.id}`} text='Bookmark' />
+          <Link href={`/?seed=${response.id}`} text='Bookmark' />
         </div>
       )}
 

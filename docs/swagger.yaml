@@ -268,7 +268,13 @@ paths:
       - class
   /heros:
     get:
-      description: Generate a new hero character concept.
+      description: Generate a new hero character concept. If 'seed' query parameter
+        is provided, it returns a deterministic hero for that seed.
+      parameters:
+      - description: Optional seed for deterministic generation
+        in: query
+        name: seed
+        type: string
       produces:
       - application/json
       responses:
@@ -276,7 +282,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/handler.HeroResponse'
-      summary: Generate a new random hero.
+      summary: Generate a new hero.
       tags:
       - hero
   /heros/{id}:

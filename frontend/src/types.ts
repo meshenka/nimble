@@ -113,6 +113,7 @@ type CancelToken = Symbol | string | number;
 
 export enum ContentType {
   Json = "application/json",
+  JsonApi = "application/vnd.api+json",
   FormData = "multipart/form-data",
   UrlEncoded = "application/x-www-form-urlencoded",
   Text = "text/plain",
@@ -179,12 +180,20 @@ export class HttpClient<SecurityDataType = unknown> {
       input !== null && (typeof input === "object" || typeof input === "string")
         ? JSON.stringify(input)
         : input,
+    [ContentType.JsonApi]: (input: any) =>
+      input !== null && (typeof input === "object" || typeof input === "string")
+        ? JSON.stringify(input)
+        : input,
     [ContentType.Text]: (input: any) =>
       input !== null && typeof input !== "string"
         ? JSON.stringify(input)
         : input,
-    [ContentType.FormData]: (input: any) =>
-      Object.keys(input || {}).reduce((formData, key) => {
+    [ContentType.FormData]: (input: any) => {
+      if (input instanceof FormData) {
+        return input;
+      }
+
+      return Object.keys(input || {}).reduce((formData, key) => {
         const property = input[key];
         formData.append(
           key,
@@ -195,7 +204,8 @@ export class HttpClient<SecurityDataType = unknown> {
               : `${property}`,
         );
         return formData;
-      }, new FormData()),
+      }, new FormData());
+    },
     [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
   };
 
@@ -281,13 +291,14 @@ export class HttpClient<SecurityDataType = unknown> {
             : payloadFormatter(body),
       },
     ).then(async (response) => {
-      const r = response.clone() as HttpResponse<T, E>;
+      const r = response as HttpResponse<T, E>;
       r.data = null as unknown as T;
       r.error = null as unknown as E;
 
+      const responseToParse = responseFormat ? response.clone() : response;
       const data = !responseFormat
         ? r
-        : await response[responseFormat]()
+        : await responseToParse[responseFormat]()
             .then((data) => {
               if (r.ok) {
                 r.data = data;
@@ -327,11 +338,11 @@ export class Api<
 > extends HttpClient<SecurityDataType> {
   ancestries = {
     /**
-     * @description Get all ancestries
+     * @description Get all ancestries.
      *
      * @tags ancestry
      * @name AncestriesList
-     * @summary All ancestries
+     * @summary All ancestries.
      * @request GET:/ancestries
      */
     ancestriesList: (params: RequestParams = {}) =>
@@ -343,11 +354,11 @@ export class Api<
       }),
 
     /**
-     * @description Get one ancestry by name
+     * @description Get one ancestry by name.
      *
      * @tags ancestry
      * @name AncestriesDetail
-     * @summary Get ancestry
+     * @summary Get ancestry.
      * @request GET:/ancestries/{name}
      */
     ancestriesDetail: (name: string, params: RequestParams = {}) =>
@@ -360,11 +371,11 @@ export class Api<
   };
   backgrounds = {
     /**
-     * @description List all available backgrounds
+     * @description List all available backgrounds.
      *
      * @tags background
      * @name BackgroundsList
-     * @summary All backgrounds
+     * @summary All backgrounds.
      * @request GET:/backgrounds
      */
     backgroundsList: (params: RequestParams = {}) =>
@@ -376,11 +387,11 @@ export class Api<
       }),
 
     /**
-     * @description Get a background by name
+     * @description Get a background by name.
      *
      * @tags background
      * @name BackgroundsDetail
-     * @summary One Background
+     * @summary One Background.
      * @request GET:/backgrounds/{name}
      */
     backgroundsDetail: (name: string, params: RequestParams = {}) =>
@@ -393,11 +404,11 @@ export class Api<
   };
   classes = {
     /**
-     * @description Get all classes
+     * @description Get all classes.
      *
      * @tags class
      * @name ClassesList
-     * @summary All classes
+     * @summary All classes.
      * @request GET:/classes
      */
     classesList: (params: RequestParams = {}) =>
@@ -409,11 +420,11 @@ export class Api<
       }),
 
     /**
-     * @description Get one class by name
+     * @description Get one class by name.
      *
      * @tags class
      * @name ClassesDetail
-     * @summary Get class
+     * @summary Get class.
      * @request GET:/classes/{name}
      */
     classesDetail: (name: string, params: RequestParams = {}) =>
@@ -426,17 +437,24 @@ export class Api<
   };
   heros = {
     /**
-     * @description Generate a new hero character concept
+     * @description Generate a new hero character concept. If 'seed' query parameter is provided, it returns a deterministic hero for that seed.
      *
      * @tags hero
      * @name HerosList
-     * @summary Generate a new random hero
+     * @summary Generate a new hero.
      * @request GET:/heros
      */
-    herosList: (params: RequestParams = {}) =>
+    herosList: (
+      query?: {
+        /** Optional seed for deterministic generation */
+        seed?: string;
+      },
+      params: RequestParams = {},
+    ) =>
       this.request<HandlerHeroResponse, any>({
         path: `/heros`,
         method: "GET",
+        query: query,
         format: "json",
         ...params,
       }),
@@ -446,7 +464,7 @@ export class Api<
      *
      * @tags hero
      * @name HerosDetail
-     * @summary Get a specific hero from it's id
+     * @summary Get a specific hero from it's id.
      * @request GET:/heros/{id}
      */
     herosDetail: (id: string, params: RequestParams = {}) =>
