@@ -1,8 +1,7 @@
 # NOTE: build binary
-FROM golang:1.24-bookworm AS builder
+FROM golang:1.26-bookworm AS builder
 
-RUN apt update
-RUN apt upgrade -y
+RUN apt update && apt upgrade -y && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -36,7 +35,7 @@ COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 # force rebuild for this part
-ARG BUILD_DATE=$(date +%s)
+ARG BUILD_DATE
 LABEL rebuild_trigger=$BUILD_DATE
 COPY --from=builder /bin/api /api
 

@@ -15,7 +15,7 @@ var (
 )
 
 func init() {
-	Seed = uint64(time.Now().UnixNano())   //nolint:gosec // G115 int64->uint64 overflow
+	Seed = uint64(time.Now().UnixNano())
 	rn = rand.New(rand.NewPCG(Seed, 3999)) //nolint:gosec
 	defaultSeeder = Rand{
 		Seed: Seed,

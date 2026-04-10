@@ -28,7 +28,7 @@ type HeroResponse struct {
 // .
 func RandomHero() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		id := uint64(time.Now().UnixNano()) //nolint:gosec // G115 int64->uint64 overflow
+		id := uint64(time.Now().UnixNano())
 		s := seeder.Configure(id)
 		ctx := seeder.WithContext(r.Context(), s)
 		h := hero.New(ctx)
