@@ -1,17 +1,14 @@
 .DEFAULT_GOAL := build
-.PHONY: api cli frontend
+.PHONY: api cli
+
+##
+## LOCAL
+## -----
+##
 
 npm-install: ## install frontend
 	pnpm install
 
-frontend: ## Build front end
-	pnpm run build
-
-backend: ## Build backend
-	go build -o api cmd/api/main.go
-	go build -o cli cmd/rnd/main.go
-
-build: docs types frontend backend ## build all
 
 cli:
 	go run cmd/rnd/main.go
@@ -29,21 +26,58 @@ fix: ## Fix linter errors automatically
 	go tool golangci-lint run --fix
 	go fix ./...
 
+##
+## BUILD
+## -----
+##
+
+build: docs types frontend backend ## build all
+
+FE_SRC := $(shell find frontend/src -name "*.tsx" -o -name "*.ts") package.json pnpm-lock.yaml webpack.config.js tsconfig.json
+
+frontend: public/bundle.js ## Build front end
+
+public/bundle.js: $(FE_SRC)
+	pnpm run build
+	touch public/bundle.js
+
+backend: ## Build backend
+	go build -o api cmd/api/main.go
+	go build -o cli cmd/rnd/main.go
+
+GO_SRC := $(shell find . -name "*.go")
+
+types: frontend/src/types.ts ## generate frontend types
+
+frontend/src/types.ts: docs/swagger.yaml
+	npx swagger-typescript-api generate -p ./docs/swagger.yaml -o ./frontend/src -n types.ts
+	touch frontend/src/types.ts
+
+docs/swagger.yaml: $(GO_SRC)
+	go tool swag init \
+		--requiredByDefault \
+		-g ./nimble.go \
+		--dir ./ \
+		-ot yaml
+	touch docs/swagger.yaml
+
+docs: docs/swagger.yaml ## generate api documentation
+##
+## TESTS
+## -----
+##
+
 test: ## run all tests
 	go test -cover -race ./...
 
 unit: ## run unit tests
 	go test -cover -short -race ./...
 
-types: docs/swagger.yaml ## generate frontend types
-	npx swagger-typescript-api generate -p ./docs/swagger.yaml -o ./frontend/src -n types.ts
 
-docs: ## generate api documentation
-	go tool swag init \
-		--requiredByDefault \
-		-g ./nimble.go \
-		--dir ./ \
-		-ot yaml
+##
+## HELP
+## ----
+##
 
 help: ## Makefile help
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' Makefile | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'

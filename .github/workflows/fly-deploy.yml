@@ -1,6 +1,7 @@
 # See https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
 
 name: Fly Deploy
+run-name: "Deploy to Fly on ${{ github.ref_type }} ${{ github.ref_name }}"
 on:
   push:
     branches:
