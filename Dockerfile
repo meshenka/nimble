@@ -40,7 +40,7 @@ LABEL rebuild_trigger=$BUILD_DATE
 COPY --from=builder /bin/api /api
 
 COPY --from=builder /app/public/index.html /public/index.html
-COPY --from=frontend /app/public/bundle.js /public/bundle.js
+COPY --from=frontend /app/public/*.bundle.js /public/
 COPY --from=frontend /app/public/styles.css /public/styles.css
 
 EXPOSE 8080 
