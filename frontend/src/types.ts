@@ -62,6 +62,7 @@ export interface HeroHero {
   ancestry: AncestryAncestry;
   background: BackgroundBackground;
   class: ClassClass;
+  id: string;
   motivation: string;
   origin: string;
   quirks: string[];
@@ -120,7 +121,7 @@ export enum ContentType {
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "//localhost:3000/api";
+  public baseUrl: string = "";
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private abortControllers = new Map<CancelToken, AbortController>();
@@ -323,15 +324,8 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title Who my f*cking Nimble 5e character is?
- * @version 1.0
- * @license Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html)
- * @termsOfService http://swagger.io/terms/
- * @baseUrl //localhost:3000/api
- * @externalDocs https://swagger.io/resources/open-api/
- * @contact Meshenka <meshee.knight@gmail.com>
- *
- * Instant random character generator
+ * @title No title
+ * @contact
  */
 export class Api<
   SecurityDataType extends unknown,
@@ -460,7 +454,7 @@ export class Api<
       }),
 
     /**
-     * @description Every random hero is generated from a seed. Once seed is set, the generation is deterministic.
+     * @description Retrieve a hero by its UUID from the database.
      *
      * @tags hero
      * @name HerosDetail

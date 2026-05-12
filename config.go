@@ -13,6 +13,15 @@ type Option func(*config) error
 
 type config struct {
 	ApplicationHTTPServerAddr string
+	DatabasePath              string
+}
+
+// WithDatabasePath configures the database path.
+func WithDatabasePath(path string) Option {
+	return func(cfg *config) error {
+		cfg.DatabasePath = path
+		return nil
+	}
 }
 
 // WithApplicationServer configures the application server addresses.

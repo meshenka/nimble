@@ -1,19 +1,38 @@
 package handler_test
 
 import (
+	"database/sql"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"strconv"
 	"testing"
 
+	"github.com/meshenka/nimble"
 	"github.com/meshenka/nimble/handler"
+	"github.com/meshenka/nimble/internal/store"
+	"github.com/pressly/goose/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	_ "modernc.org/sqlite"
 )
 
+func setup(t *testing.T) *handler.Handler {
+	t.Helper()
+	db, err := sql.Open("sqlite", ":memory:")
+	require.NoError(t, err)
+	t.Cleanup(func() { _ = db.Close() })
+
+	goose.SetBaseFS(nimble.Migrations)
+	require.NoError(t, goose.SetDialect("sqlite3"))
+	require.NoError(t, goose.Up(db, "migrations"))
+
+	s := store.NewStore(db)
+	return handler.New(s)
+}
+
 func TestRandomHeroHandler(t *testing.T) {
-	sut := handler.RandomHero()
+	h := setup(t)
+	sut := h.RandomHero()
 
 	t.Run("random", func(t *testing.T) {
 		req := httptest.NewRequest(http.MethodGet, "/api/heros", http.NoBody)
@@ -24,22 +43,7 @@ func TestRandomHeroHandler(t *testing.T) {
 
 		resp := new(handler.HeroResponse)
 		require.NoError(t, json.Unmarshal(w.Body.Bytes(), resp))
-		assert.NotEmpty(t, resp.ID)
-	})
-
-	t.Run("with seed", func(t *testing.T) {
-		var seed uint64 = 9527120102352189307
-		want := strconv.FormatUint(seed, 10)
-		req := httptest.NewRequest(http.MethodGet, "/api/heros?seed="+want, http.NoBody)
-		w := httptest.NewRecorder()
-
-		sut.ServeHTTP(w, req)
-		require.Equal(t, http.StatusOK, w.Code)
-
-		resp := new(handler.HeroResponse)
-		require.NoError(t, json.Unmarshal(w.Body.Bytes(), resp))
-		assert.Equal(t, want, resp.ID)
-		assert.Equal(t, "Turtlefolk", resp.Hero.Ancestry.Name)
+		assert.NotEqual(t, [16]byte{}, resp.ID)
 	})
 
 	t.Run("invalid seed", func(t *testing.T) {
@@ -52,13 +56,23 @@ func TestRandomHeroHandler(t *testing.T) {
 }
 
 func TestGetHeroHandler(t *testing.T) {
-	sut := handler.GetHero()
+	h := setup(t)
+	sut := h.GetHero()
 
+	// 1. Create a hero first
+	reqCreate := httptest.NewRequest(http.MethodGet, "/api/heros", http.NoBody)
+	wCreate := httptest.NewRecorder()
+	h.RandomHero().ServeHTTP(wCreate, reqCreate)
+	require.Equal(t, http.StatusOK, wCreate.Code)
+
+	var respCreate handler.HeroResponse
+	require.NoError(t, json.Unmarshal(wCreate.Body.Bytes(), &respCreate))
+
+	// 2. Try to get it
 	router := http.NewServeMux()
 	router.Handle("GET /api/heros/{id}", sut)
-	var seed uint64 = 9527120102352189307
-	want := strconv.FormatUint(seed, 10)
-	req := httptest.NewRequest(http.MethodGet, "/api/heros/"+want, http.NoBody)
+
+	req := httptest.NewRequest(http.MethodGet, "/api/heros/"+respCreate.ID.String(), http.NoBody)
 	w := httptest.NewRecorder()
 
 	router.ServeHTTP(w, req)
@@ -66,9 +80,6 @@ func TestGetHeroHandler(t *testing.T) {
 
 	resp := new(handler.HeroResponse)
 	require.NoError(t, json.Unmarshal(w.Body.Bytes(), resp))
-	assert.Equal(t, want, resp.ID)
-	assert.Equal(t, "Turtlefolk", resp.Hero.Ancestry.Name)
-	assert.Equal(t, "Mage", resp.Hero.Class.Name)
-	assert.Equal(t, "Wild One", resp.Hero.Background.Name)
-	assert.Contains(t, resp.Hero.Quirks, "Anxious")
+	assert.Equal(t, respCreate.ID, resp.ID)
+	assert.Equal(t, respCreate.Hero.Ancestry.Name, resp.Hero.Ancestry.Name)
 }

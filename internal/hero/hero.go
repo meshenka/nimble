@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/meshenka/nimble/internal/hero/ancestry"
 	"github.com/meshenka/nimble/internal/hero/background"
 	"github.com/meshenka/nimble/internal/hero/class"
@@ -15,6 +16,7 @@ import (
 
 // Hero represents a generated hero character.
 type Hero struct {
+	ID         uuid.UUID             `json:"id"`
 	Ancestry   ancestry.Ancestry     `json:"ancestry"`
 	Class      class.Class           `json:"class"`
 	Motivation string                `json:"motivation"`
@@ -26,6 +28,7 @@ type Hero struct {
 // New creates a new random hero.
 func New(ctx context.Context) Hero {
 	return Hero{
+		ID:         uuid.Must(uuid.NewV7()),
 		Ancestry:   ancestry.Select(ctx),
 		Class:      class.Select(ctx),
 		Motivation: motivation.Select(ctx),

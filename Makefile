@@ -73,6 +73,18 @@ test: ## run all tests
 unit: ## run unit tests
 	go test -cover -short -race ./...
 
+sqlc: ## generate store code
+	go tool sqlc generate
+
+migration: ## create a new migration (usage: make migration NAME=create_users)
+	go tool goose -dir migrations create $(NAME) sql
+
+migrate: ## run migrations
+	go tool goose -dir migrations sqlite3 nimble.db up
+
+reset-db: ## remove and recreate the database
+	rm -f nimble.db
+	$(MAKE) migrate
 
 ##
 ## HELP

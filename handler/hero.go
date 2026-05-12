@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/meshenka/nimble/internal/hero"
 	"github.com/meshenka/nimble/internal/log"
 	"github.com/meshenka/nimble/internal/seeder"
@@ -14,7 +15,7 @@ import (
 type HeroResponse struct {
 	Hero     hero.Hero `json:"hero"`
 	Sentence string    `json:"sentence"`
-	ID       string    `json:"id"`
+	ID       uuid.UUID `json:"id"`
 }
 
 // RandomHero godoc.
@@ -27,7 +28,7 @@ type HeroResponse struct {
 // @Success      200  {object}  HeroResponse
 // @Router       /heros [get]
 // .
-func RandomHero() http.Handler {
+func (h *Handler) RandomHero() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var id uint64
 		if s := r.URL.Query().Get("seed"); s != "" {
@@ -43,41 +44,53 @@ func RandomHero() http.Handler {
 		}
 		s := seeder.Configure(id)
 		ctx := seeder.WithContext(r.Context(), s)
-		h := hero.New(ctx)
-		writeJSON(ctx, w, response(h, s))
+		heroData := hero.New(ctx)
+
+		savedHero, err := h.store.SaveHero(ctx, heroData)
+		if err != nil {
+			log.Ctx(ctx).Error("could not save hero", log.Err(err))
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		writeJSON(ctx, w, response(savedHero))
 	})
 }
 
 // GetHero godoc.
 //
 // @Summary      Get a specific hero from it's id.
-// @Description  Every random hero is generated from a seed. Once seed is set, the generation is deterministic.
+// @Description  Retrieve a hero by its UUID from the database.
 // @Tags         hero
 // @Produce      json
 // @Success      200  {object}  HeroResponse
 // @Router       /heros/{id} [get]
 // .
-func GetHero() http.Handler {
+func (h *Handler) GetHero() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		v := r.PathValue("id")
-		id, err := strconv.ParseUint(v, 10, 64)
+		id, err := uuid.Parse(v)
 		if err != nil {
 			log.Ctx(r.Context()).Error("invalid id", "error", err, "hero_id", v)
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
 
-		s := seeder.Configure(id)
-		ctx := seeder.WithContext(r.Context(), s)
-		h := hero.New(ctx)
-		writeJSON(ctx, w, response(h, s))
+		heroData, err := h.store.GetHero(r.Context(), id)
+		if err != nil {
+			log.Ctx(r.Context()).Error("could not find hero", "error", err, "hero_id", id)
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
+
+		writeJSON(r.Context(), w, response(heroData))
 	})
 }
 
-func response(h hero.Hero, s seeder.Rand) HeroResponse {
+func response(h hero.Hero) HeroResponse {
 	return HeroResponse{
 		Hero:     h,
 		Sentence: hero.String(h),
-		ID:       strconv.FormatUint(s.Seed, 10),
+		ID:       h.ID,
 	}
 }
