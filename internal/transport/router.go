@@ -7,10 +7,10 @@ import (
 )
 
 // NewRouter creates and configures a new router instance.
-func NewRouter() *http.ServeMux {
+func NewRouter(h *handler.Handler) *http.ServeMux {
 	mux := NewServeMux()
-	mux.Handle("GET /api/heros", handler.RandomHero())
-	mux.Handle("GET /api/heros/{id}", handler.GetHero())
+	mux.Handle("GET /api/heros", h.RandomHero())
+	mux.Handle("GET /api/heros/{id}", h.GetHero())
 	mux.Handle("GET /api/classes", handler.Classes())
 	mux.Handle("GET /api/classes/{name}", handler.GetClass())
 	mux.Handle("GET /api/ancestries", handler.Ancestries())

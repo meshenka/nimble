@@ -2,31 +2,27 @@ package nimble
 
 import (
 	"context"
+	"database/sql"
+	_ "embed"
+	"fmt"
 	"sync/atomic"
 
+	"github.com/meshenka/nimble/handler"
 	"github.com/meshenka/nimble/internal/log"
+	"github.com/meshenka/nimble/internal/store"
 	"github.com/meshenka/nimble/internal/transport"
 	"golang.org/x/sync/errgroup"
+	_ "modernc.org/sqlite"
 )
 
+//go:embed internal/store/schema.sql
+var schema string
+
 // Serve run t service.
-// @title           Who my f*cking Nimble 5e character is?
-// @version         1.0
-// @description     Instant random character generator
-// @termsOfService  http://swagger.io/terms/
-// @contact.name   Meshenka
-// @contact.email  meshee.knight@gmail.com
-// @license.name  Apache 2.0
-// @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
-//
-// @host      localhost:3000
-// @BasePath  /api/
-//
-// @externalDocs.description  OpenAPI
-// @externalDocs.url          https://swagger.io/resources/open-api/
 func Serve(parent context.Context, options ...Option) error {
-	// return errors.New("not implemented")
-	var cfg config
+	cfg := config{
+		DatabasePath: "nimble.db",
+	}
 	for _, opt := range options {
 		if err := opt(&cfg); err != nil {
 			log.Ctx(parent).Error("invalid configuration", log.Err(err))
@@ -34,12 +30,25 @@ func Serve(parent context.Context, options ...Option) error {
 		}
 	}
 
+	db, err := sql.Open("sqlite", cfg.DatabasePath)
+	if err != nil {
+		return fmt.Errorf("open db: %w", err)
+	}
+	defer db.Close()
+
+	if _, err := db.ExecContext(parent, schema); err != nil {
+		return fmt.Errorf("init schema: %w", err)
+	}
+
+	s := store.NewStore(db)
+	h := handler.New(s)
+
 	httpReady := new(atomic.Bool)
 
 	group, ctx := errgroup.WithContext(parent)
 
 	group.Go(func() error {
-		mux := transport.NewRouter()
+		mux := transport.NewRouter(h)
 		mw := transport.Use(
 			log.HTTPMiddleware(),
 		)

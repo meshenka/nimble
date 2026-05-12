@@ -6,7 +6,16 @@ import (
 	"net/http"
 
 	"github.com/meshenka/nimble/internal/log"
+	"github.com/meshenka/nimble/internal/store"
 )
+
+type Handler struct {
+	store *store.Store
+}
+
+func New(s *store.Store) *Handler {
+	return &Handler{store: s}
+}
 
 func writeJSON(ctx context.Context, w http.ResponseWriter, data any) {
 	w.Header().Set("Content-Type", "application/json")

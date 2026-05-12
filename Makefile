@@ -73,6 +73,8 @@ test: ## run all tests
 unit: ## run unit tests
 	go test -cover -short -race ./...
 
+sqlc: ## generate store code
+	go tool sqlc generate
 
 ##
 ## HELP

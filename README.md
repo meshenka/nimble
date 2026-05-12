@@ -5,7 +5,9 @@ random fantasy characters.
 
 It features a Go backend that powers a RESTful API for creating and
 managing character data, complemented by a React-based frontend for
-a seamless user experience. The application is structured with separate
+a seamless user experience. Character persistence is handled by a SQLite
+database using [sqlc](https://sqlc.dev/) for type-safe queries and UUID v7 
+for sortable, unique identifiers. The application is structured with separate
 directories for the frontend and backend code, and it includes
 comprehensive documentation and testing to ensure reliability
 and ease of use.
@@ -38,4 +40,7 @@ make help
 
 # start local http server
 make api
+
+# regenerate database code
+make sqlc
 ```
