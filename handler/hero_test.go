@@ -7,8 +7,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/meshenka/nimble"
 	"github.com/meshenka/nimble/handler"
 	"github.com/meshenka/nimble/internal/store"
+	"github.com/pressly/goose/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	_ "modernc.org/sqlite"
@@ -19,18 +21,9 @@ func setup(t *testing.T) *handler.Handler {
 	require.NoError(t, err)
 	t.Cleanup(func() { db.Close() })
 
-	schema := `CREATE TABLE heroes (
-    id BLOB PRIMARY KEY,
-    ancestry_name TEXT NOT NULL,
-    class_name TEXT NOT NULL,
-    motivation TEXT NOT NULL,
-    origin TEXT NOT NULL,
-    background_name TEXT NOT NULL,
-    quirks TEXT NOT NULL,
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);`
-	_, err = db.Exec(schema)
-	require.NoError(t, err)
+	goose.SetBaseFS(nimble.Migrations)
+	require.NoError(t, goose.SetDialect("sqlite3"))
+	require.NoError(t, goose.Up(db, "migrations"))
 
 	s := store.NewStore(db)
 	return handler.New(s)

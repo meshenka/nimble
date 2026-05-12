@@ -3,7 +3,7 @@ package nimble
 import (
 	"context"
 	"database/sql"
-	_ "embed"
+	"embed"
 	"fmt"
 	"sync/atomic"
 
@@ -11,12 +11,15 @@ import (
 	"github.com/meshenka/nimble/internal/log"
 	"github.com/meshenka/nimble/internal/store"
 	"github.com/meshenka/nimble/internal/transport"
+	"github.com/pressly/goose/v3"
 	"golang.org/x/sync/errgroup"
 	_ "modernc.org/sqlite"
 )
 
-//go:embed internal/store/schema.sql
-var schema string
+// Migrations is the embedded filesystem containing database migrations.
+//
+//go:embed migrations/*.sql
+var Migrations embed.FS
 
 // Serve run t service.
 func Serve(parent context.Context, options ...Option) error {
@@ -36,8 +39,13 @@ func Serve(parent context.Context, options ...Option) error {
 	}
 	defer db.Close()
 
-	if _, err := db.ExecContext(parent, schema); err != nil {
-		return fmt.Errorf("init schema: %w", err)
+	goose.SetBaseFS(Migrations)
+	if err := goose.SetDialect("sqlite3"); err != nil {
+		return fmt.Errorf("set dialect: %w", err)
+	}
+
+	if err := goose.Up(db, "migrations"); err != nil {
+		return fmt.Errorf("run migrations: %w", err)
 	}
 
 	s := store.NewStore(db)
