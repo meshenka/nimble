@@ -1,3 +1,4 @@
+// Package store provides character persistence using SQLite.
 package store
 
 import (
@@ -13,11 +14,13 @@ import (
 	"github.com/meshenka/nimble/internal/hero/class"
 )
 
+// Store handles database operations for heroes.
 type Store struct {
 	db *sql.DB
 	q  *Queries
 }
 
+// NewStore creates a new Store with the given database connection.
 func NewStore(db *sql.DB) *Store {
 	return &Store{
 		db: db,
@@ -25,6 +28,7 @@ func NewStore(db *sql.DB) *Store {
 	}
 }
 
+// SaveHero persists a hero to the database.
 func (s *Store) SaveHero(ctx context.Context, h hero.Hero) (hero.Hero, error) {
 	if h.ID == uuid.Nil {
 		h.ID = uuid.Must(uuid.NewV7())
@@ -51,6 +55,7 @@ func (s *Store) SaveHero(ctx context.Context, h hero.Hero) (hero.Hero, error) {
 	return h, nil
 }
 
+// GetHero retrieves a hero from the database by ID.
 func (s *Store) GetHero(ctx context.Context, id uuid.UUID) (hero.Hero, error) {
 	row, err := s.q.GetHero(ctx, id[:])
 	if err != nil {
@@ -60,6 +65,7 @@ func (s *Store) GetHero(ctx context.Context, id uuid.UUID) (hero.Hero, error) {
 	return s.toDomain(row)
 }
 
+// ListHeroes returns all heroes from the database.
 func (s *Store) ListHeroes(ctx context.Context) ([]hero.Hero, error) {
 	rows, err := s.q.ListHeroes(ctx)
 	if err != nil {

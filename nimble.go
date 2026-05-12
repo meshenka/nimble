@@ -13,7 +13,7 @@ import (
 	"github.com/meshenka/nimble/internal/transport"
 	"github.com/pressly/goose/v3"
 	"golang.org/x/sync/errgroup"
-	_ "modernc.org/sqlite"
+	_ "modernc.org/sqlite" // sqlite driver
 )
 
 // Migrations is the embedded filesystem containing database migrations.
@@ -37,7 +37,7 @@ func Serve(parent context.Context, options ...Option) error {
 	if err != nil {
 		return fmt.Errorf("open db: %w", err)
 	}
-	defer db.Close()
+	defer db.Close() //nolint:errcheck
 
 	goose.SetBaseFS(Migrations)
 	if err := goose.SetDialect("sqlite3"); err != nil {

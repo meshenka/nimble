@@ -9,10 +9,12 @@ import (
 	"github.com/meshenka/nimble/internal/store"
 )
 
+// Handler handles HTTP requests.
 type Handler struct {
 	store *store.Store
 }
 
+// New creates a new Handler with the given store.
 func New(s *store.Store) *Handler {
 	return &Handler{store: s}
 }

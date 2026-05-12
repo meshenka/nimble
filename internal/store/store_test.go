@@ -15,9 +15,10 @@ import (
 )
 
 func setupStore(t *testing.T) *store.Store {
+	t.Helper()
 	db, err := sql.Open("sqlite", ":memory:")
 	require.NoError(t, err)
-	t.Cleanup(func() { db.Close() })
+	t.Cleanup(func() { _ = db.Close() })
 
 	goose.SetBaseFS(nimble.Migrations)
 	require.NoError(t, goose.SetDialect("sqlite3"))
